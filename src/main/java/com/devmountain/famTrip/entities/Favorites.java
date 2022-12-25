@@ -87,15 +87,17 @@ public class Favorites {
     private User tripDetails;
 
     public Favorites (FavoritesDto favoritesDto) {
-        } if (favoritesDto.getName() != null) {
+        if (favoritesDto.getName() != null) {
             this.name = favoritesDto.getName();
-        } if (favoritesDto.getAddress() != null) {
+        }
+        if (favoritesDto.getAddress() != null) {
             this.address = favoritesDto.getAddress();
-        } if (favoritesDto.getType() != null) {
+        }
+        if (favoritesDto.getType() != null) {
             this.type = favoritesDto.getType();
-        } if (favoritesDto.getWebsite() != null) {
+        }
+        if (favoritesDto.getWebsite() != null) {
             this.website = favoritesDto.getWebsite();
         }
     }
-
 }
