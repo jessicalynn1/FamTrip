@@ -12,6 +12,19 @@ public class FavoritesServiceImpl {
 
     //all the logic is done here
     //controller calls service
+    /*
+    Need to add logic here to do the following:
+    Call the Yelp API
+
+    Display results of API call
+
+    Allow user ability to tag certain restaurants and activities as favorites
+
+    Allow user to find past lists of favorites
+
+    Allow user to delete favorites list
+
+     */
 
 //make a new method to lookup options from Yelp code below is in that class
 
