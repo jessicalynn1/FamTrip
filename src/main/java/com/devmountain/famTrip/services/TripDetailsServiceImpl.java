@@ -11,7 +11,10 @@ import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Collections;
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class TripDetailsServiceImpl {
@@ -28,8 +31,6 @@ public class TripDetailsServiceImpl {
     Find trip details in database
 
     Find Favorites from trip details
-
-    Delete a trip
 
     Need to create a session to store query information for Yelp API call
 
@@ -56,6 +57,23 @@ public class TripDetailsServiceImpl {
     public void deleteTripById(Long tripDetailsId) {
         Optional<TripDetails> tripOptional = tripDetailsRepository.findById(tripDetailsId);
         tripOptional.ifPresent(tripDetails -> tripDetailsRepository.delete(tripDetails));
+    }
+
+    public List<TripDetailsDto> getAllTripsByUserId(Long userId) {
+        Optional<User> userOptional = userRepository.findById(userId);
+        if (userOptional.isPresent()) {
+            List<TripDetails> tripDetailsList = tripDetailsRepository.findAllTripsByUserId(userOptional.get());
+            return tripDetailsList.stream().map(tripDetails -> new TripDetailsDto(tripDetails)).collect(Collectors.toList());
+        }
+        return Collections.emptyList();
+    }
+
+    public Optional<TripDetailsDto> getTripDetailsById(Long tripDetailsId) {
+        Optional<TripDetails> tripDetailsOptional = tripDetailsRepository.findTripDetailsById(tripDetailsId);
+        if (tripDetailsOptional.isPresent()) {
+            return Optional.of(new TripDetailsDto(tripDetailsOptional.get()));
+        }
+        return Optional.empty();
     }
 
 }
