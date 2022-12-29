@@ -1,11 +1,15 @@
 package com.devmountain.famTrip.services;
 
 
+import com.devmountain.famTrip.dtos.TripDetailsDto;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.servlet.http.HttpServletResponse;
 import okhttp3.*;
+import org.springframework.util.Assert;
 import org.springframework.web.bind.annotation.GetMapping;
 
 import java.io.IOException;
+import java.text.MessageFormat;
 import java.util.ArrayList;
 
 public class FavoritesServiceImpl {
@@ -15,63 +19,73 @@ public class FavoritesServiceImpl {
     /*
     Need to add logic here to do the following:
     Call the Yelp API
-
     Display results of API call
-
     Allow user ability to tag certain restaurants and activities as favorites
-
     Allow user to find past lists of favorites
-
     Allow user to delete favorites list
-
      */
 
 
-    public ArrayList yelpBusinessLookup (/* add parameters like city later */) {
-//        OkHttpClient client = new OkHttpClient();
-//
-//        RequestBody body = new FormBody.Builder()
-//                .add("accessToken", "-InuUN7JRE7hKXeCtab8nbaNDnM3Vgt2M5Hp10MRzc0t_1wDqWUHuon-hi_8W9tujveH6THcDeYQ3if1p_jFgvrrx6lfFnP0n_DLSjT6traZdDVZf1ZA0mlFRCKeY3Yx")
-//                .build();
-//
-//        Request request = new Request.Builder()
-//                .url("https://yelpapiserg-osipchukv1.p.rapidapi.com/getBusinesses")
-//                .post(body)
-//                .addHeader("content-type", "application/x-www-form-urlencoded")
-//                .addHeader("X-RapidAPI-Key", "a575b2fad6msh499a40142671db3p100049jsnce9262c4cb85")
-//                .addHeader("X-RapidAPI-Host", "YelpAPIserg-osipchukV1.p.rapidapi.com")
-//                .build();
-
-        //to add a header to pass through the API key and the rapidAPI key
-//        Code below from Yelp Fusion API documentation, it's all about the categories when searching
-        //Categories to use for activities: kids_activities, playgrounds, recreation, childrensmuseums, planetarium, indoor_playcenter
-        //Categories to use for Events: kids-family, festivals-fairs
-        //Restaurant json doesn't include kids menu but MAYBE I can filter by number of $$$ (less is best) and if they take reservations
-        //transactions: restaurant_reservation and price: $$$
+    public ArrayList yelpBusinessLookup (TripDetailsDto tripDetailsDto) {
 
         OkHttpClient client = new OkHttpClient();
+        String city = tripDetailsDto.getCity();
+        Boolean restaurant = tripDetailsDto.getRestaurant();
+        Boolean activity = tripDetailsDto.getActivity();
+        Boolean children = tripDetailsDto.getChildren();
+        String restaurantTrue = "";
+        String activityTrue = "";
+        String categories = "";
+        String price = "";
+
+        if (restaurant) {
+            restaurantTrue = "restaurants";
+        } else if (activity) {
+            activityTrue = "activities";
+        }
+
+        if (children && restaurant) {
+            categories = "categories=pizza";
+            price = "price=1&price=2";
+        } else if (children && activity) {
+            categories = "categories=kids_activities&categories=playgrounds&categories=recreation" +
+                    "&categories=childrensmuseums&categories=planetarium&categories=indoor_playcenter&categories=trampoline";
+            price = "";
+        }
+
+        String stringUrl = MessageFormat.format("https://api.yelp.com/v3/businesses/search?location={0}&term={1}{2}&" +
+                "{3}&{4}&attributes=&sort_by=best_match&limit=20", city, restaurantTrue, activityTrue, categories, price);
 
         Request request = new Request.Builder()
-                .url("https://api.yelp.com/v3/businesses/search?location=seattle&term=restaurants&radius=16000&attributes=kid_friendly%26attributes%3Dkids%26attributes%3Dchildren&sort_by=best_match&limit=20")
+                .url(stringUrl)
                 .get()
                 .addHeader("accept", "application/json")
                 .addHeader("Authorization", "Bearer -InuUN7JRE7hKXeCtab8nbaNDnM3Vgt2M5Hp10MRzc0t_1wDqWUHuon-hi_8W9tujveH6THcDeYQ3if1p_jFgvrrx6lfFnP0n_DLSjT6traZdDVZf1ZA0mlFRCKeY3Yx")
                 .build();
 
-//        Response response = client.newCall(request).execute();
-
         Response response;
         try {
             response = client.newCall(request).execute();
+            response.body().string();
+
+            ObjectMapper objectMapper = new ObjectMapper();
+            ResponseBody responseBody = client.newCall(request).execute().body();
+            SimpleEntity entity = objectMapper.readValue(responseBody.string(), SimpleEntity.class);
+
+//            Assert.assertNotNull(entity);
+//            Assert.assertEquals(sampleResponse.getName(), entity.getName());
+
         } catch (IOException e) {
+            return null;
         }
+        return new ArrayList<>();
     }
 }
 
 
-/* Not sure if this works below... */
-//    @GetMapping("/http-servlet-response")
-//    public String usingHttpServletResponse (HttpServletResponse response){
-//        response.addHeader("Baeldung-Example-Header", "Value-HttpServletResponse");
-//        return "Response with header using HttpServletResponse";
-//    }
+//        Code below from Yelp Fusion API documentation, it's all about the categories when searching
+//Categories to use for activities: kids_activities, playgrounds, recreation, childrensmuseums, planetarium, indoor_playcenter
+//Categories to use for Events: kids-family, festivals-fairs
+//Restaurant json doesn't include kids menu but MAYBE I can filter by number of $$$ (less is best) and if they take reservations
+//transactions: restaurant_reservation and price: $$ or pizza
+

@@ -31,6 +31,9 @@ public class User {
     @Column(unique = true)
     private String email;
 
+    @Column
+    private String password;
+
     public Long getId() {
         return id;
     }
@@ -47,8 +50,6 @@ public class User {
         this.password = password;
     }
 
-    public User() {
-    }
 
     public void setId(Long id) {
         this.id = id;
@@ -86,8 +87,7 @@ public class User {
         this.password = password;
     }
 
-    @Column
-    private String password;
+
 
     public User (UserDto userDto) {
         if (userDto.getFirstName() != null) {

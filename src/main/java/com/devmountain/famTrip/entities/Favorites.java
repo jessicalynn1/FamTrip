@@ -84,7 +84,7 @@ public class Favorites {
 
     @ManyToOne
     @JsonBackReference
-    private User tripDetails;
+    private TripDetails tripDetails;
 
     public Favorites (FavoritesDto favoritesDto) {
         if (favoritesDto.getName() != null) {
