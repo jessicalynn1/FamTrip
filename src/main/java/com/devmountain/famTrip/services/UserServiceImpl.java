@@ -3,11 +3,13 @@ package com.devmountain.famTrip.services;
 import com.devmountain.famTrip.dtos.UserDto;
 import com.devmountain.famTrip.entities.User;
 import com.devmountain.famTrip.repositories.UserRepository;
+import jakarta.servlet.http.HttpSession;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.web.context.request.RequestContextHolder;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -38,13 +40,16 @@ public class UserServiceImpl implements UserService {
 
         if (userOptional.isPresent()) {
             if (passwordEncoder.matches(userDto.getPassword(), userOptional.get().getPassword())) {
-            response.add("You have successfully logged in.");
-            response.add(String.valueOf(userOptional.get().getId()));
+                response.add("You have successfully logged in.");
+                response.add(String.valueOf(userOptional.get().getId()));
+            } else {
+                response.add("You have entered an incorrect login and password combination.");
+            }
         } else {
             response.add("You have entered an incorrect login and password combination.");
         }
-    } else {
-        response.add("You have entered an incorrect login and password combination.");
-        } return response;
+        return response;
     }
+    String sessionId = RequestContextHolder.currentRequestAttributes().getSessionId();
 }
+

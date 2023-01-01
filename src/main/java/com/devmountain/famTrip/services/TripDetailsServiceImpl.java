@@ -29,11 +29,8 @@ public class TripDetailsServiceImpl {
         --Children Y/N
 
     Find trip details in database
-
     Find Favorites from trip details
-
     Need to create a session to store query information for Yelp API call
-
      */
 
     @Autowired
@@ -75,6 +72,10 @@ public class TripDetailsServiceImpl {
         }
         return Optional.empty();
     }
+
+    /* Need to add a method here that takes in the results of the form
+    * these results are shared to favoritesserviceimpl, so they can query Yelp API
+    * */
 
 }
 

@@ -1,17 +1,33 @@
 package com.devmountain.famTrip.services;
 
 
+import com.devmountain.famTrip.dtos.BusinessDto;
+import com.devmountain.famTrip.dtos.FavoritesDto;
 import com.devmountain.famTrip.dtos.TripDetailsDto;
+import com.devmountain.famTrip.entities.Favorites;
+import com.devmountain.famTrip.entities.TripDetails;
+import com.devmountain.famTrip.entities.User;
+import com.devmountain.famTrip.repositories.FavoritesRepository;
+import com.devmountain.famTrip.repositories.TripDetailsRepository;
+import com.devmountain.famTrip.repositories.UserRepository;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.transaction.Transactional;
 import okhttp3.*;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 import org.springframework.web.bind.annotation.GetMapping;
 
 import java.io.IOException;
 import java.text.MessageFormat;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
 
+@Service
 public class FavoritesServiceImpl {
 
     //all the logic is done here
@@ -23,8 +39,22 @@ public class FavoritesServiceImpl {
     Allow user ability to tag certain restaurants and activities as favorites
     Allow user to find past lists of favorites
     Allow user to delete favorites list
+
+//        Code below from Yelp Fusion API documentation, it's all about the categories when searching
+//Categories to use for activities: kids_activities, playgrounds, recreation, childrensmuseums, planetarium, indoor_playcenter
+//Categories to use for Events: kids-family, festivals-fairs
+//Restaurant json doesn't include kids menu but MAYBE I can filter by number of $$$ (less is best) and if they take reservations
+//transactions: restaurant_reservation and price: $$ or pizza
      */
 
+    @Autowired
+    private UserRepository userRepository;
+
+    @Autowired
+    private TripDetailsRepository tripDetailsRepository;
+
+    @Autowired
+    private FavoritesRepository favoritesRepository;
 
     public ArrayList yelpBusinessLookup (TripDetailsDto tripDetailsDto) {
 
@@ -80,12 +110,31 @@ public class FavoritesServiceImpl {
         }
         return new ArrayList<>();
     }
+
+    public List<FavoritesDto> getAllFavoritesbyUserId(Long userId) {
+        Optional<User> userOptional = userRepository.findById(userId);
+        if (userOptional.isPresent()) {
+            List<Favorites> favoritesList = favoritesRepository.findAllFavoritesByUserId(userOptional.get());
+            return favoritesList.stream().map(favorites -> new FavoritesDto(favorites)).collect(Collectors.toList());
+        }
+        return Collections.emptyList();
+    }
+
+    @Transactional
+    public void deleteFavoritesById(Long favoritesId) {
+        Optional<Favorites> favoritesOptional = favoritesRepository.findById(favoritesId);
+        favoritesOptional.ifPresent(favorites -> favoritesRepository.delete(favorites));
+    }
+
+    @Transactional
+    public void addFavorites(FavoritesDto favoritesDto, Long userId) {
+        Optional<User> userOptional = userRepository.findById(userId);
+        Favorites favorites = new Favorites(favoritesDto);
+        userOptional.ifPresent(favorites::setUser); // not sure where this error is coming from
+        favoritesRepository.saveAndFlush(favorites);
+    }
+
 }
 
 
-//        Code below from Yelp Fusion API documentation, it's all about the categories when searching
-//Categories to use for activities: kids_activities, playgrounds, recreation, childrensmuseums, planetarium, indoor_playcenter
-//Categories to use for Events: kids-family, festivals-fairs
-//Restaurant json doesn't include kids menu but MAYBE I can filter by number of $$$ (less is best) and if they take reservations
-//transactions: restaurant_reservation and price: $$ or pizza
 
