@@ -33,7 +33,7 @@ public class FavoritesServiceImpl {
     //all the logic is done here
     //controller calls service
     /*
-    Need to add logic here to do the following:
+    Need to do the following:
     Call the Yelp API
     Display results of API call
     Allow user ability to tag certain restaurants and activities as favorites
@@ -103,7 +103,7 @@ public class FavoritesServiceImpl {
             SimpleEntity entity = objectMapper.readValue(responseBody.string(), SimpleEntity.class);
 
 //            Assert.assertNotNull(entity);
-//            Assert.assertEquals(sampleResponse.getName(), entity.getName());
+//            Assert.assertEquals(response.getName(), entity.getName());
 
         } catch (IOException e) {
             return null;
@@ -111,10 +111,12 @@ public class FavoritesServiceImpl {
         return new ArrayList<>();
     }
 
-    public List<FavoritesDto> getAllFavoritesbyUserId(Long userId) {
+//    @Override
+    @Transactional
+    public List<FavoritesDto> getAllFavoritesByUserId(Long userId) {
         Optional<User> userOptional = userRepository.findById(userId);
         if (userOptional.isPresent()) {
-            List<Favorites> favoritesList = favoritesRepository.findAllFavoritesByUserId(userOptional.get());
+            List<Favorites> favoritesList = favoritesRepository.getAllFavoritesByUserId(userOptional.get());
             return favoritesList.stream().map(favorites -> new FavoritesDto(favorites)).collect(Collectors.toList());
         }
         return Collections.emptyList();
@@ -126,13 +128,13 @@ public class FavoritesServiceImpl {
         favoritesOptional.ifPresent(favorites -> favoritesRepository.delete(favorites));
     }
 
-    @Transactional
-    public void addFavorites(FavoritesDto favoritesDto, Long userId) {
-        Optional<User> userOptional = userRepository.findById(userId);
-        Favorites favorites = new Favorites(favoritesDto);
-        userOptional.ifPresent(favorites::setUser); // not sure where this error is coming from
-        favoritesRepository.saveAndFlush(favorites);
-    }
+//    @Transactional
+//    public void addFavorites(FavoritesDto favoritesDto, Long userId) {
+//        Optional<User> userOptional = userRepository.findById(userId);
+//        Favorites favorites = new Favorites(favoritesDto);
+//        userOptional.ifPresent(favorites::setUser); // not sure where this error is coming from
+//        favoritesRepository.saveAndFlush(favorites);
+//    }
 
 }
 

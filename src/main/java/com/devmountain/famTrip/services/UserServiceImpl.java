@@ -50,6 +50,6 @@ public class UserServiceImpl implements UserService {
         }
         return response;
     }
-    String sessionId = RequestContextHolder.currentRequestAttributes().getSessionId();
+//    String sessionId = RequestContextHolder.currentRequestAttributes().getSessionId();
 }
 

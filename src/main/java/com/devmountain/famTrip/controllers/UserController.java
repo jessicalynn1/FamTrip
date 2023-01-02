@@ -1,4 +1,40 @@
 package com.devmountain.famTrip.controllers;
 
+
+import com.devmountain.famTrip.dtos.UserDto;
+import com.devmountain.famTrip.services.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import java.util.List;
+
+/*
+Can I have two methods going to the same page? /login is used twice
+ */
+
+@RestController
+@RequestMapping("/api/v1/users")  //Not sure where this is supposed to map to
 public class UserController {
+
+    @Autowired
+    private UserService userService;
+    @Autowired
+    private PasswordEncoder passwordEncoder;
+
+    @PostMapping("/login")
+    public List<String> addUser(@RequestBody UserDto userDto) {
+        String passHash = passwordEncoder.encode(userDto.getPassword());
+        userDto.setPassword(passHash);
+        return userService.addUser(userDto);
+    }
+
+    @PostMapping("/login")
+    public List<String> userLogin (@RequestBody UserDto userDto) {
+        return userService.userLogin(userDto);
+    }
+
 }
