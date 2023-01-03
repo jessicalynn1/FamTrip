@@ -12,11 +12,10 @@ public interface TripDetails {
     List<TripDetailsDto> getAllNotesByUserId(Long userId);
 
     @Transactional
-    void addTrip(TripDetailsDto tripDetailsDto, Long userId);
+    List<TripDetails> addTrip(TripDetailsDto tripDetailsDto, Long userId);
 
     @Transactional
     void deleteTripById(Long tripDetailsId);
-
 
     Optional<TripDetailsDto> getTripDetailsById(Long tripDetailsId);
 

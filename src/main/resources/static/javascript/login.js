@@ -1,13 +1,13 @@
 //Just getting a base code in, need to update
 
-const loginrUsername = document.getElementById('login-username')
+const loginUsername = document.getElementById('login-username')
 const loginPassword = document.getElementById('login-password')
 
 const header = {
     'Content-Type':'application/json'
 }
 
-const baseUrl = 'http://localhost:8080/api/v1/users'
+const baseUrl = 'http://localhost:8080/'  //is this right?
 
 const handleSubmit = async (e) => {
     e.preventDefault()

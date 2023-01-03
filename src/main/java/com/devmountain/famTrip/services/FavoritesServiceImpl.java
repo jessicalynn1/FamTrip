@@ -128,13 +128,13 @@ public class FavoritesServiceImpl {
         favoritesOptional.ifPresent(favorites -> favoritesRepository.delete(favorites));
     }
 
-//    @Transactional
-//    public void addFavorites(FavoritesDto favoritesDto, Long userId) {
-//        Optional<User> userOptional = userRepository.findById(userId);
-//        Favorites favorites = new Favorites(favoritesDto);
+    @Transactional
+    public void addFavorites(FavoritesDto favoritesDto, Long userId) {
+        Optional<User> userOptional = userRepository.findById(userId);
+        Favorites favorites = new Favorites(favoritesDto);
 //        userOptional.ifPresent(favorites::setUser); // not sure where this error is coming from
-//        favoritesRepository.saveAndFlush(favorites);
-//    }
+        favoritesRepository.saveAndFlush(favorites);
+    }
 
 }
 

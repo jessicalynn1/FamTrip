@@ -9,24 +9,24 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/api/v1/favorites")
+@RequestMapping("/api/v1/favorites") //Not sure where this is supposed to map to
 public class FavoritesController {
 
     //where you put your methods with routes
     // where you would put the method for looking at all of your favorites
     //requests come in from controllers
 
-//    @Autowired
-//    private FavoritesService favoritesService;
-//
-//    @DeleteMapping("/{favoritesId}")
-//    public void deleteFavoritesById (@PathVariable Long favoritesId) {
-//        favoritesService.deleteFavoritesById(favoritesId);
+    @Autowired
+    private FavoritesService favoritesService;
+
+    @DeleteMapping("/{favoritesId}")
+    public void deleteFavoritesById (@PathVariable Long favoritesId) {
+       favoritesService.deleteFavoritesById(favoritesId);
+    }
+
+//    @GetMapping("/user/{favoritesId}")  //where should this map?
+//    public List<FavoritesDto> getAllFavoritesByUserId (@PathVariable Long userId) {
+//       return favoritesService.getAllFavoritesByUserId(User userId);
 //    }
-//
-//    @GetMapping("/user/{favoritesId}")
-//    public List<FavoritesDto> getAllFavoritesByUserId (@PathVariable Long favoritesId) {
-//       return favoritesService.getAllFavoritesByUserId(favoritesId);
-//    }
-//
+
 }
