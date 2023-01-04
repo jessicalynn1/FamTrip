@@ -1,5 +1,6 @@
 package com.devmountain.famTrip.repositories;
 
+import com.devmountain.famTrip.dtos.FavoritesDto;
 import com.devmountain.famTrip.entities.Favorites;
 import com.devmountain.famTrip.entities.TripDetails;
 import com.devmountain.famTrip.entities.User;
@@ -12,5 +13,9 @@ import java.util.List;
 public interface FavoritesRepository extends JpaRepository<Favorites, Long> {
 
 //    List<Favorites> getAllFavoritesByUserId(User userId);
+
+//    public void deleteFavoritesById(Long favoritesId);
+//
+//    public void addFavorites(FavoritesDto favoritesDto, Long userId);
 
 }

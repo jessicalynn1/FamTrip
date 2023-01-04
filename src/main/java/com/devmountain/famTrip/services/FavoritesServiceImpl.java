@@ -1,7 +1,6 @@
 package com.devmountain.famTrip.services;
 
 
-import com.devmountain.famTrip.dtos.BusinessDto;
 import com.devmountain.famTrip.dtos.FavoritesDto;
 import com.devmountain.famTrip.dtos.TripDetailsDto;
 import com.devmountain.famTrip.entities.Favorites;
@@ -10,14 +9,13 @@ import com.devmountain.famTrip.entities.User;
 import com.devmountain.famTrip.repositories.FavoritesRepository;
 import com.devmountain.famTrip.repositories.TripDetailsRepository;
 import com.devmountain.famTrip.repositories.UserRepository;
+import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import jakarta.servlet.http.HttpServletResponse;
 import jakarta.transaction.Transactional;
 import okhttp3.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
-import org.springframework.web.bind.annotation.GetMapping;
 
 import java.io.IOException;
 import java.text.MessageFormat;
@@ -25,7 +23,6 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 @Service
 public class FavoritesServiceImpl implements FavoritesService {
@@ -96,15 +93,15 @@ public class FavoritesServiceImpl implements FavoritesService {
         Response response;
         try {
             response = client.newCall(request).execute();
-            response.body().string();
+            String responseString = response.body().string();
 
-            ObjectMapper objectMapper = new ObjectMapper();
-            ResponseBody responseBody = client.newCall(request).execute().body();
-            SimpleEntity entity = objectMapper.readValue(responseBody.string(), SimpleEntity.class);
+            ObjectMapper objectMapper = new ObjectMapper().configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+//            ResponseBody responseBody = client.newCall(request).execute().body();
+            YelpResponse entity = objectMapper.readValue(responseString, YelpResponse.class);
 
 //            Assert.assertNotNull(entity);
 //            Assert.assertEquals(response.getName(), entity.getName());
-
+            entity.print();
         } catch (IOException e) {
             return null;
         }
@@ -133,7 +130,7 @@ public class FavoritesServiceImpl implements FavoritesService {
 
     @Transactional
     public void addFavorites(FavoritesDto favoritesDto, Long userId) {
-        Optional<User> userOptional = userRepository.findById(userId);
+//        Optional<User> userOptional = userRepository.findById(userId);
         Favorites favorites = new Favorites(favoritesDto);
 //        userOptional.ifPresent(favorites::setUser); // not sure where this error is coming from
         favoritesRepository.saveAndFlush(favorites);

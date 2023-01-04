@@ -16,6 +16,7 @@ public class FavoritesDto implements Serializable {
     private String address;
     private String type;
     private String website;
+    private TripDetailsDto tripDetailsDto;
 
     public FavoritesDto (Favorites favorites) {
         if (favorites.getId() != null) {
@@ -28,6 +29,8 @@ public class FavoritesDto implements Serializable {
             this.type = favorites.getType();
         } if (favorites.getWebsite() != null) {
             this.website = favorites.getWebsite();
+        } if (favorites.getTripDetails() != null) {
+            tripDetailsDto = new TripDetailsDto(favorites.getTripDetails());
         }
 
     }
