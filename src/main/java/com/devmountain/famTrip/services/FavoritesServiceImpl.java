@@ -28,7 +28,7 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
-public class FavoritesServiceImpl {
+public class FavoritesServiceImpl implements FavoritesService {
 
     //all the logic is done here
     //controller calls service
@@ -111,16 +111,19 @@ public class FavoritesServiceImpl {
         return new ArrayList<>();
     }
 
-//    @Override
+    @Override
     @Transactional
     public List<FavoritesDto> getAllFavoritesByUserId(Long userId) {
         Optional<User> userOptional = userRepository.findById(userId);
         if (userOptional.isPresent()) {
-            List<Favorites> favoritesList = favoritesRepository.getAllFavoritesByUserId(userOptional.get());
-            return favoritesList.stream().map(favorites -> new FavoritesDto(favorites)).collect(Collectors.toList());
+            List<TripDetails> tripDetails = tripDetailsRepository.findAllTripsByUserId(userOptional.get());
+//            List<Favorites> favoritesList = favoritesRepository.getAllFavoritesByUserId(userOptional.get());
+//            return favoritesList.stream().map(favorites -> new FavoritesDto(favorites)).collect(Collectors.toList());
+            System.out.println(tripDetails);
         }
         return Collections.emptyList();
     }
+
 
     @Transactional
     public void deleteFavoritesById(Long favoritesId) {

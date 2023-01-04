@@ -9,7 +9,7 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/api/v1/favorites") //Not sure where this is supposed to map to
+@RequestMapping("/api/v1/users/favorites") //Not sure where this is supposed to map to
 public class FavoritesController {
 
     //where you put your methods with routes
@@ -24,7 +24,7 @@ public class FavoritesController {
        favoritesService.deleteFavoritesById(favoritesId);
     }
 
-//    @GetMapping("/user/{favoritesId}")  //where should this map?
+//    @GetMapping("/{favoritesId}")  //where should this map?
 //    public List<FavoritesDto> getAllFavoritesByUserId (@PathVariable Long userId) {
 //       return favoritesService.getAllFavoritesByUserId(User userId);
 //    }

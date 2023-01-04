@@ -11,6 +11,6 @@ import java.util.List;
 @Repository
 public interface FavoritesRepository extends JpaRepository<Favorites, Long> {
 
-    List<Favorites> getAllFavoritesByUserId(User userId);
+//    List<Favorites> getAllFavoritesByUserId(User userId);
 
 }
