@@ -1,6 +1,7 @@
 package com.devmountain.famTrip.services;
 
 
+import com.devmountain.famTrip.dtos.BusinessDto;
 import com.devmountain.famTrip.dtos.FavoritesDto;
 import com.devmountain.famTrip.dtos.TripDetailsDto;
 import com.devmountain.famTrip.entities.Favorites;
@@ -10,6 +11,7 @@ import com.devmountain.famTrip.repositories.FavoritesRepository;
 import com.devmountain.famTrip.repositories.TripDetailsRepository;
 import com.devmountain.famTrip.repositories.UserRepository;
 import com.fasterxml.jackson.databind.DeserializationFeature;
+import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.transaction.Transactional;
 import okhttp3.*;
@@ -17,12 +19,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
+import javax.lang.model.element.Element;
 import java.io.IOException;
 import java.text.MessageFormat;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 @Service
 public class FavoritesServiceImpl implements FavoritesService {
@@ -53,7 +53,7 @@ public class FavoritesServiceImpl implements FavoritesService {
     @Autowired
     private FavoritesRepository favoritesRepository;
 
-    public ArrayList yelpBusinessLookup (TripDetailsDto tripDetailsDto) {
+    public List yelpBusinessLookup (TripDetailsDto tripDetailsDto) {
 
         OkHttpClient client = new OkHttpClient();
         String city = tripDetailsDto.getCity();
@@ -91,21 +91,45 @@ public class FavoritesServiceImpl implements FavoritesService {
                 .build();
 
         Response response;
+
+        List<BusinessDto> result = null;
+
         try {
             response = client.newCall(request).execute();
             String responseString = response.body().string();
 
-            ObjectMapper objectMapper = new ObjectMapper().configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
-//            ResponseBody responseBody = client.newCall(request).execute().body();
-            YelpResponse entity = objectMapper.readValue(responseString, YelpResponse.class);
+            ObjectMapper objectMapper = new ObjectMapper();
+            JsonNode jsonNode = objectMapper.readTree(responseString);
 
-//            Assert.assertNotNull(entity);
-//            Assert.assertEquals(response.getName(), entity.getName());
-            entity.print();
+            result = parseYelpResponse(jsonNode);
+
         } catch (IOException e) {
             return null;
         }
-        return new ArrayList<>();
+        return result;
+    }
+
+    public List<BusinessDto> parseYelpResponse(JsonNode jsonNode) {
+
+        Iterator<JsonNode> businesses = jsonNode.get("businesses").elements();
+        List<BusinessDto> result = new ArrayList<>();
+
+        while (businesses.hasNext()) {
+            JsonNode business = businesses.next();
+
+            BusinessDto businessDto = new BusinessDto();
+
+            businessDto.setName(business.get("name").asText());
+            businessDto.setWebsite(business.get("url").asText());
+            businessDto.setDisplayPhone(business.get("display_phone").asText());
+            result.add(businessDto);
+
+            // need to go through dictionary to get display address and categories
+
+//            jsonNode.get("display address").asText();
+//            jsonNode.get("categories").asText();
+        }
+        return result;
     }
 
     @Override

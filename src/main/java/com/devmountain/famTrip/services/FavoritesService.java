@@ -21,6 +21,6 @@ public interface FavoritesService {
 
     List<FavoritesDto> getAllFavoritesByUserId(Long userId);
 
-    public ArrayList yelpBusinessLookup (TripDetailsDto tripDetailsDto);
+    public List yelpBusinessLookup (TripDetailsDto tripDetailsDto);
 
 }

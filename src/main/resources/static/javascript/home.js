@@ -1,4 +1,5 @@
 //Just getting a base code in, need to update
+// this is where you would validate if the user is logged in or not
 
 //Cookie
 const cookieArr = document.cookie.split("=")

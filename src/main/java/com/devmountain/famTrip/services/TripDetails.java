@@ -9,16 +9,14 @@ import java.util.Optional;
 
 public interface TripDetails {
 
-    List<TripDetailsDto> getAllNotesByUserId(Long userId);
-
     @Transactional
-    List<TripDetails> addTrip(TripDetailsDto tripDetailsDto, Long userId);
+    void addTrip(TripDetailsDto tripDetailsDto, Long userId);
 
     @Transactional
     void deleteTripById(Long tripDetailsId);
 
     Optional<TripDetailsDto> getTripDetailsById(Long tripDetailsId);
 
-    Optional<UserDto> getAllTripsByUserId(Long userId);
+    List<TripDetailsDto> getAllTripsByUserId(Long userId);
 
 }

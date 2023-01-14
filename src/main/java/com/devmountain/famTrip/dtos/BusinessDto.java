@@ -3,8 +3,12 @@ package com.devmountain.famTrip.dtos;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
 import java.io.Serializable;
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+//import javax.annotation.Generated;
 
 @Data
 @AllArgsConstructor
@@ -19,28 +23,7 @@ public class BusinessDto implements Serializable {
     private Long id;
     private String name;
     private String address;
-    private String description; //restaurant or activity
     private String categories;
     private String website;
-
-    /*
-    Ask Zack about how to create this dto
-     */
-
-//    public BusinessDto (/* takes in json response*/) {
-//        if (response.getId() != null) {
-//            this.id = response.getId();
-//        } if (response.getName() != null) {
-//            this.name = response.getId();
-//        } if (response.getAddress() != null) {
-//            this.address = response.getId();
-//        } if (response.getDescription() != null) {
-//            this.description = response.getId();
-//        } if (response.getCategories() != null) {
-//            this.categories = response.getId();
-//        } if (response.getWebsite() != null) {
-//            this.website = response.getId();
-//        }
-//    }
-
+    private String displayPhone;
 }

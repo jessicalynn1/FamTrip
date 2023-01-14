@@ -1,5 +1,6 @@
 package com.devmountain.famTrip.controllers;
 
+import com.devmountain.famTrip.dtos.BusinessDto;
 import com.devmountain.famTrip.dtos.FavoritesDto;
 import com.devmountain.famTrip.dtos.TripDetailsDto;
 import com.devmountain.famTrip.services.FavoritesService;
@@ -33,9 +34,9 @@ public class FavoritesController {
     }
 
     @GetMapping("/test")
-    public void test() {
+    public List<BusinessDto> test() {
         TripDetailsDto tripDetailsDto = new TripDetailsDto(1L, "Test Trip", "Seattle", true, false, 3, true);
-        favoritesService.yelpBusinessLookup(tripDetailsDto);
+        return favoritesService.yelpBusinessLookup(tripDetailsDto);
 
     }
 
