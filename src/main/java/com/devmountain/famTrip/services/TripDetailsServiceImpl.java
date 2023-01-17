@@ -73,10 +73,5 @@ public class TripDetailsServiceImpl implements com.devmountain.famTrip.services.
         return Optional.empty();
     }
 
-    /* Need to add a method here that takes in the results of the form
-    * these results are shared to favoritesserviceimpl, so they can query Yelp API
-    * this is done in tripdetails controller
-    * */
-
 }
 

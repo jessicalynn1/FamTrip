@@ -22,16 +22,6 @@ import java.util.Optional;
 @RequestMapping("/api/v1/users/tripdetails")
 public class TripDetailsController {
 
-    //add a route to get a list of options from yelp api
-
-//    @GetMapping
-//    ArrayList<String> getResult(ArrayList<String> result) {
-//        /*
-//        This is where I would return the list of businesses from the Yelp API call
-//         */
-//
-//    }
-
     @Autowired
     private TripDetails tripDetails;
 
@@ -40,18 +30,25 @@ public class TripDetailsController {
         tripDetails.deleteTripById(tripDetailsId);
     }
 
-//    @GetMapping("/{tripDetailsId}") //want this method to return BusinessDto, not sure if that's possible
-//    public List<BusinessDto> getTripDetailsById(@PathVariable Long tripDetailsId) {
-//        return tripDetails.getTripDetailsbyId(tripDetailsId);
-//    }
-//
-//    @GetMapping("/{tripDetailsId}")  //this doesn't match the tripdetails service file
-//    public List<TripDetailsDto> getAllTripsByUserId(@PathVariable Long userId) {
-//        return tripDetails.getAllTripsByUserId(userId);
-//    }
+    @GetMapping("/{tripDetailsId}")
+    public List<TripDetailsDto> getAllTripsByUserId(@PathVariable Long userId) {
+        return tripDetails.getAllTripsByUserId(userId);
+    }
+
+    @GetMapping("/yelpCallList")
+    public ArrayList<String> displayResponse(ArrayList<BusinessDto> response) {
+
+        ArrayList<String> result = new ArrayList<>();
+
+        for (BusinessDto businessDto : response) {
+            var strBusinessDto = businessDto.toString();
+            result.add(strBusinessDto);
+            System.out.println(businessDto);
+        }
+        return result;
+    }
 
 
     //need to create a (post mapping) method to takes in the response from the form
-
 
 }

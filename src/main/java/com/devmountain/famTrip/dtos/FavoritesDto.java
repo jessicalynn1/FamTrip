@@ -32,7 +32,5 @@ public class FavoritesDto implements Serializable {
         } if (favorites.getTripDetails() != null) {
             tripDetailsDto = new TripDetailsDto(favorites.getTripDetails());
         }
-
     }
-
 }

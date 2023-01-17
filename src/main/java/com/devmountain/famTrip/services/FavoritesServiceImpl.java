@@ -13,6 +13,8 @@ import com.devmountain.famTrip.repositories.UserRepository;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.node.ArrayNode;
+import com.fasterxml.jackson.databind.node.ObjectNode;
 import jakarta.transaction.Transactional;
 import okhttp3.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -53,7 +55,7 @@ public class FavoritesServiceImpl implements FavoritesService {
     @Autowired
     private FavoritesRepository favoritesRepository;
 
-    public List yelpBusinessLookup (TripDetailsDto tripDetailsDto) {
+    public List yelpBusinessLookup(TripDetailsDto tripDetailsDto) {
 
         OkHttpClient client = new OkHttpClient();
         String city = tripDetailsDto.getCity();
@@ -97,6 +99,7 @@ public class FavoritesServiceImpl implements FavoritesService {
         try {
             response = client.newCall(request).execute();
             String responseString = response.body().string();
+            System.out.println(responseString);
 
             ObjectMapper objectMapper = new ObjectMapper();
             JsonNode jsonNode = objectMapper.readTree(responseString);
@@ -116,21 +119,38 @@ public class FavoritesServiceImpl implements FavoritesService {
 
         while (businesses.hasNext()) {
             JsonNode business = businesses.next();
-
+            System.out.println("Business object printed here: " + business);
             BusinessDto businessDto = new BusinessDto();
 
             businessDto.setName(business.get("name").asText());
             businessDto.setWebsite(business.get("url").asText());
             businessDto.setDisplayPhone(business.get("display_phone").asText());
+
+            JsonNode categories = business.get("categories");
+            ArrayList<String> strCategories = new ArrayList<>();
+            JsonNode location = business.get("location");
+            JsonNode addresses = location.get("display_address");
+            ArrayList<String> strAddress = new ArrayList<>();
+
+            for (Iterator<JsonNode> it = categories.elements(); it.hasNext(); ) {
+                JsonNode category = it.next();
+
+                strCategories.add(category.get("title").asText());
+            }
+            businessDto.setCategories(String.join(" and ", strCategories));
+
+            for (Iterator<JsonNode> it = addresses.elements(); it.hasNext();) {
+                JsonNode address = it.next();
+
+                strAddress.add(address.asText());
+            }
+            businessDto.setAddress(String.join(", ", strAddress));
+
             result.add(businessDto);
-
-            // need to go through dictionary to get display address and categories
-
-//            jsonNode.get("display address").asText();
-//            jsonNode.get("categories").asText();
         }
         return result;
-    }
+        }
+
 
     @Override
     @Transactional
@@ -138,8 +158,6 @@ public class FavoritesServiceImpl implements FavoritesService {
         Optional<User> userOptional = userRepository.findById(userId);
         if (userOptional.isPresent()) {
             List<TripDetails> tripDetails = tripDetailsRepository.findAllTripsByUserId(userOptional.get());
-//            List<Favorites> favoritesList = favoritesRepository.getAllFavoritesByUserId(userOptional.get());
-//            return favoritesList.stream().map(favorites -> new FavoritesDto(favorites)).collect(Collectors.toList());
             System.out.println(tripDetails);
         }
         return Collections.emptyList();
@@ -158,6 +176,11 @@ public class FavoritesServiceImpl implements FavoritesService {
         Favorites favorites = new Favorites(favoritesDto);
 //        userOptional.ifPresent(favorites::setUser); // not sure where this error is coming from
         favoritesRepository.saveAndFlush(favorites);
+    }
+
+    @Transactional
+    public void displayResponse(ArrayList<BusinessDto> response) {
+        return;
     }
 
 }

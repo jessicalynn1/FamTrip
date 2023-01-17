@@ -20,7 +20,7 @@ public class BusinessDto implements Serializable {
     //look at favorites as example but add more detail
     //include categories listed
 
-    private Long id;
+//    private Long id;
     private String name;
     private String address;
     private String categories;

@@ -1,7 +1,6 @@
 package com.devmountain.famTrip.services;
 
 import com.devmountain.famTrip.dtos.TripDetailsDto;
-import com.devmountain.famTrip.dtos.UserDto;
 import jakarta.transaction.Transactional;
 
 import java.util.List;
