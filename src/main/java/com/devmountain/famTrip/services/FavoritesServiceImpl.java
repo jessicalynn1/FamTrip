@@ -170,18 +170,19 @@ public class FavoritesServiceImpl implements FavoritesService {
         favoritesOptional.ifPresent(favorites -> favoritesRepository.delete(favorites));
     }
 
-    @Transactional
-    public void addFavorites(FavoritesDto favoritesDto, Long userId) {
+//    @Transactional
+//    public void addFavorites(FavoritesDto favoritesDto, Long userId) {  //wouldn't this be a businessDto?
 //        Optional<User> userOptional = userRepository.findById(userId);
-        Favorites favorites = new Favorites(favoritesDto);
+//        Favorites favorites = new Favorites(favoritesDto);
 //        userOptional.ifPresent(favorites::setUser); // not sure where this error is coming from
-        favoritesRepository.saveAndFlush(favorites);
-    }
+//        favoritesRepository.saveAndFlush(favorites);
+//    }
 
-    @Transactional
-    public void displayResponse(ArrayList<BusinessDto> response) {
-        return;
-    }
+//    @Transactional
+//    public ArrayList<BusinessDto> displayResponse(ArrayList<BusinessDto> response) {
+//
+//        return;         //sent question to Zack about this method
+//    }
 
 }
 

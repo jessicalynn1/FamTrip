@@ -1,6 +1,7 @@
-let loginForm = document.getElementById('login-form')
-let loginUsername = document.getElementById('login-username')
-let loginPassword = document.getElementById('login-password')
+
+let registerForm = document.getElementById('register-form')
+let registerUsername = document.getElementById('register-username')
+let registerPassword = document.getElementById('register-password')
 
 const header = {
     'Content-Type':'application/json'
@@ -12,11 +13,11 @@ const handleSubmit = async (e) => {
     e.preventDefault()
 
     let bodyObj = {
-        username: loginUsername.value,
-        password: loginPassword.value
+        registerUsername: registerUsername.value,
+        registerPassword: registerPassword.value
     }
 
-    const response = await fetch(`${baseUrl}/login`, {
+    const response = await fetch(`${baseUrl}/register`, {
         method: "POST",
         body: JSON.stringify(bodyObj),
         headers: header
@@ -26,9 +27,8 @@ const handleSubmit = async (e) => {
     const responseArr = await response.json()
 
     if (response.status === 200) {
-        document.cookie = userId=${responseArr[1]}
         window.location.replace(responseArr[0])
     }
 }
 
-loginForm.addEventListener("submit", handleSubmit)
+registerForm.addEventListener("submit", handleSubmit)

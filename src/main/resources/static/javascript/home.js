@@ -1,4 +1,3 @@
-//Just getting a base code in, need to update
 // this is where you would validate if the user is logged in or not
 
 //Cookie
@@ -17,7 +16,7 @@ const headers = {
     'Content-Type': 'application/json'
 }
 
-const baseUrl = "http://localhost:8080/home/"
+const baseUrl = 'http://localhost:8080/home/'
 
 function handleLogout() {
     let c = document.cookie.split(";");
@@ -36,10 +35,10 @@ const handeSubmit = async (e) => {
 }
 
 async function addNote(obj) {
-    const response = await fetch('${baseUrl}user/${userId}', {
+    const response = await fetch(`${baseUrl}user/${userId}`, {
         method: "POST",
         body: JSON.stringify(obj)
-        headers: headers
+        headers: header
     })
 
         .catch(err => console.error(err.message))
@@ -49,7 +48,7 @@ async function addNote(obj) {
 }
 
 async function getNotes(userId) {
-    await fetch('${baseUrl}user/${userId}', {
+    await fetch(`${baseUrl}user/${userId}`, {
         method: "GET",
         headers: headers
     })

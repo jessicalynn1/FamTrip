@@ -22,14 +22,14 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column
-    private String firstName;
-
-    @Column
-    private String lastName;
-
     @Column(unique = true)
-    private String email;
+    private String userName;
+
+//    @Column
+//    private String lastName;
+
+//    @Column(unique = true)
+//    private String email;
 
     @Column
     private String password;
@@ -42,11 +42,11 @@ public class User {
     @JsonManagedReference
     private Set<TripDetails> tripDetailsSet = new HashSet();
 
-    public User(Long id, String firstName, String lastName, String email, String password) {
+    public User(Long id, String userName, String password) {
         this.id = id;
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.email = email;
+        this.userName = userName;
+//        this.lastName = lastName;
+//        this.email = email;
         this.password = password;
     }
 
@@ -55,29 +55,29 @@ public class User {
         this.id = id;
     }
 
-    public String getFirstName() {
-        return firstName;
+    public String getUserName() {
+        return userName;
     }
 
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
+    public void setUserName(String firstName) {
+        this.userName = userName;
     }
 
-    public String getLastName() {
-        return lastName;
-    }
-
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
+//    public String getLastName() {
+//        return lastName;
+//    }
+//
+//    public void setLastName(String lastName) {
+//        this.lastName = lastName;
+//    }
+//
+//    public String getEmail() {
+//        return email;
+//    }
+//
+//    public void setEmail(String email) {
+//        this.email = email;
+//    }
 
     public String getPassword() {
         return password;
@@ -90,12 +90,12 @@ public class User {
 
 
     public User (UserDto userDto) {
-        if (userDto.getFirstName() != null) {
-            this.firstName = userDto.getFirstName();
-        } if (userDto.getLastName() != null) {
-            this.lastName = userDto.getLastName();
-        } if (userDto.getEmail() != null) {
-            this.email = userDto.getEmail();
+        if (userDto.getUserName() != null) {
+            this.userName = userDto.getUserName();
+//        } if (userDto.getLastName() != null) {
+//            this.lastName = userDto.getLastName();
+//        } if (userDto.getEmail() != null) {
+//            this.email = userDto.getEmail();
         } if (userDto.getPassword() != null) {
             this.password = userDto.getPassword();
         }

@@ -35,20 +35,18 @@ public class TripDetailsController {
         return tripDetails.getAllTripsByUserId(userId);
     }
 
-    @GetMapping("/yelpCallList")
-    public ArrayList<String> displayResponse(ArrayList<BusinessDto> response) {
+//    @GetMapping("/yelpCallList")
+//    public ArrayList<BusinessDto> displayResponse(ArrayList<BusinessDto> response) {
+//
+//        ArrayList<BusinessDto> result = new ArrayList<>();
+//
+//        for (BusinessDto businessDto : response) {
+////            var strBusinessDto = businessDto.toString();
+//            result.add(businessDto);
+//            System.out.println(businessDto);
+//        }
+//        return result;
+//    }
 
-        ArrayList<String> result = new ArrayList<>();
-
-        for (BusinessDto businessDto : response) {
-            var strBusinessDto = businessDto.toString();
-            result.add(strBusinessDto);
-            System.out.println(businessDto);
-        }
-        return result;
-    }
-
-
-    //need to create a (post mapping) method to takes in the response from the form
 
 }
