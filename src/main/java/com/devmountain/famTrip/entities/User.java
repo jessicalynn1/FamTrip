@@ -45,8 +45,6 @@ public class User {
     public User(Long id, String userName, String password) {
         this.id = id;
         this.userName = userName;
-//        this.lastName = lastName;
-//        this.email = email;
         this.password = password;
     }
 
@@ -59,25 +57,9 @@ public class User {
         return userName;
     }
 
-    public void setUserName(String firstName) {
+    public void setUserName(String userName) {
         this.userName = userName;
     }
-
-//    public String getLastName() {
-//        return lastName;
-//    }
-//
-//    public void setLastName(String lastName) {
-//        this.lastName = lastName;
-//    }
-//
-//    public String getEmail() {
-//        return email;
-//    }
-//
-//    public void setEmail(String email) {
-//        this.email = email;
-//    }
 
     public String getPassword() {
         return password;
@@ -92,10 +74,6 @@ public class User {
     public User (UserDto userDto) {
         if (userDto.getUserName() != null) {
             this.userName = userDto.getUserName();
-//        } if (userDto.getLastName() != null) {
-//            this.lastName = userDto.getLastName();
-//        } if (userDto.getEmail() != null) {
-//            this.email = userDto.getEmail();
         } if (userDto.getPassword() != null) {
             this.password = userDto.getPassword();
         }

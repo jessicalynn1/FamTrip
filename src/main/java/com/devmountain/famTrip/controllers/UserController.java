@@ -17,7 +17,7 @@ Can I have two methods going to the same page? /login is used twice
  */
 
 @RestController
-@RequestMapping("/api/v1/users")  //Not sure where this is supposed to map to
+@RequestMapping("/api/v1/users")
 public class UserController {
 
     @Autowired

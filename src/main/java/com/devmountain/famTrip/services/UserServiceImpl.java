@@ -38,7 +38,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public List<String> userLogin(UserDto userDto) {
         List<String> response = new ArrayList<>();
-        Optional<User> userOptional = userRepository.findById(userDto.getId());
+        Optional<User> userOptional = userRepository.findByUserName(userDto.getUserName());
 
         if (userOptional.isPresent()) {
             if (passwordEncoder.matches(userDto.getPassword(), userOptional.get().getPassword())) {

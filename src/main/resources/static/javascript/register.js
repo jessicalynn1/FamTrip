@@ -13,8 +13,8 @@ const handleSubmit = async (e) => {
     e.preventDefault()
 
     let bodyObj = {
-        registerUsername: registerUsername.value,
-        registerPassword: registerPassword.value
+        userName: registerUsername.value,
+        password: registerPassword.value
     }
 
     const response = await fetch(`${baseUrl}/register`, {
