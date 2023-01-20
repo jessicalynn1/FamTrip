@@ -39,9 +39,9 @@ const handleSubmit = async (e) => {
     const responseArr = await response.json()
 
     if (response.status === 200) {
-        window.location.replace(responseArr[0])
+        sessionStorage.setItem("yelpResult", JSON.stringify(responseArr))
+        window.location.replace("http://localhost:8080/tripdetails.html")
     }
-    }
-
+}
 
 tripForm.addEventListener("submit", handleSubmit)

@@ -6,7 +6,7 @@ import jakarta.transaction.Transactional;
 import java.util.List;
 import java.util.Optional;
 
-public interface TripDetails {
+public interface TripDetailsService {
 
     @Transactional
     void addTrip(TripDetailsDto tripDetailsDto, Long userId);

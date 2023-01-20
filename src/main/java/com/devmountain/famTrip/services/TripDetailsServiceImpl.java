@@ -17,21 +17,7 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
-public class TripDetailsServiceImpl implements com.devmountain.famTrip.services.TripDetails {
-
-    /*
-    Need to create the form
-        -- Name of trip
-        -- City
-        --Activity Y/N
-        --Restaurant Y/N
-        --Group size
-        --Children Y/N
-
-    Find trip details in database
-    Find Favorites from trip details
-    Need to create a session to store query information for Yelp API call
-     */
+public class TripDetailsServiceImpl implements TripDetailsService {
 
     @Autowired
     private UserRepository userRepository;

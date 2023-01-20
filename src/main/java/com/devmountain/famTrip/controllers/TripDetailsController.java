@@ -4,8 +4,10 @@ import com.devmountain.famTrip.dtos.BusinessDto;
 import com.devmountain.famTrip.dtos.TripDetailsDto;
 import com.devmountain.famTrip.dtos.TripFormRequestDto;
 import com.devmountain.famTrip.dtos.UserDto;
+import com.devmountain.famTrip.entities.TripDetails;
+import com.devmountain.famTrip.repositories.TripDetailsRepository;
 import com.devmountain.famTrip.services.FavoritesService;
-import com.devmountain.famTrip.services.TripDetails;
+import com.devmountain.famTrip.services.TripDetailsService;
 import com.devmountain.famTrip.services.TripDetailsServiceImpl;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -20,12 +22,15 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-@Controller
+@RestController
 @RequestMapping("/api/v1/users/")
 public class TripDetailsController {
 
     @Autowired
-    private TripDetails tripDetails;
+    private TripDetailsRepository tripDetailsRepository;
+
+    @Autowired
+    private TripDetailsService tripDetails;
 
     @Autowired
     private FavoritesService favoritesService;
@@ -76,6 +81,9 @@ public class TripDetailsController {
         }
 
         TripDetailsDto tripDetailsDto = new TripDetailsDto(null, tripName, city, activities, restaurant, null, children);
+        TripDetails tripDetails1 = new TripDetails(tripDetailsDto);
+        tripDetailsRepository.saveAndFlush(tripDetails1);
         return favoritesService.yelpBusinessLookup(tripDetailsDto);
+//        return new ArrayList<>();
     }
 }

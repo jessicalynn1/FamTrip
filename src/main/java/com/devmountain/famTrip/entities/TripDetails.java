@@ -40,71 +40,71 @@ public class TripDetails {
     @Column
     private Boolean children;
 
-    public Long getId() {
-        return id;
-    }
+//    public Long getId() {
+//        return id;
+//    }
+//
+//    public void setId(Long id) {
+//        this.id = id;
+//    }
+//
+//    public String getTripName() {
+//        return tripName;
+//    }
+//
+//    public void setTripName(String tripName) {
+//        this.tripName = tripName;
+//    }
+//
+//    public String getCity() {
+//        return city;
+//    }
+//
+//    public void setCity(String city) {
+//        this.city = city;
+//    }
+//
+//    public Boolean getActivity() {
+//        return activity;
+//    }
+//
+//    public void setActivity(Boolean activity) {
+//        this.activity = activity;
+//    }
+//
+//    public Boolean getRestaurant() {
+//        return restaurant;
+//    }
+//
+//    public void setRestaurant(Boolean restaurant) {
+//        this.restaurant = restaurant;
+//    }
+//
+//    public Integer getGroupSize() {
+//        return groupSize;
+//    }
+//
+//    public void setGroupSize(Integer groupSize) {
+//        this.groupSize = groupSize;
+//    }
+//
+//    public Boolean getChildren() {
+//        return children;
+//    }
+//
+//    public void setChildren(Boolean children) {
+//        this.children = children;
+//    }
 
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getTripName() {
-        return tripName;
-    }
-
-    public void setTripName(String tripName) {
-        this.tripName = tripName;
-    }
-
-    public String getCity() {
-        return city;
-    }
-
-    public void setCity(String city) {
-        this.city = city;
-    }
-
-    public Boolean getActivity() {
-        return activity;
-    }
-
-    public void setActivity(Boolean activity) {
-        this.activity = activity;
-    }
-
-    public Boolean getRestaurant() {
-        return restaurant;
-    }
-
-    public void setRestaurant(Boolean restaurant) {
-        this.restaurant = restaurant;
-    }
-
-    public Integer getGroupSize() {
-        return groupSize;
-    }
-
-    public void setGroupSize(Integer groupSize) {
-        this.groupSize = groupSize;
-    }
-
-    public Boolean getChildren() {
-        return children;
-    }
-
-    public void setChildren(Boolean children) {
-        this.children = children;
-    }
-
-    public TripDetails(Long id, String tripName, String city, Boolean activity, Boolean restaurant, Integer groupSize, Boolean children) {
-        this.id = id;
-        this.tripName = tripName;
-        this.city = city;
-        this.activity = activity;
-        this.restaurant = restaurant;
-        this.groupSize = groupSize;
-        this.children = children;
-    }
+//    public TripDetails(Long id, String tripName, String city, Boolean activity, Boolean restaurant, Integer groupSize, Boolean children) {
+//        this.id = id;
+//        this.tripName = tripName;
+//        this.city = city;
+//        this.activity = activity;
+//        this.restaurant = restaurant;
+//        this.groupSize = groupSize;
+//        this.children = children;
+//    }
 
     @OneToMany(mappedBy = "tripDetails", fetch = FetchType.LAZY, cascade = {CascadeType.MERGE, CascadeType.PERSIST})
     @JsonManagedReference
