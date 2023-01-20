@@ -1,3 +1,6 @@
+//Cookie
+const cookieArr = document.cookie.split("=")
+const userId = cookieArr[1];
 
 let registerForm = document.getElementById('register-form')
 let registerUsername = document.getElementById('register-username')

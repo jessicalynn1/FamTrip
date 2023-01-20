@@ -55,7 +55,7 @@ public class FavoritesServiceImpl implements FavoritesService {
     @Autowired
     private FavoritesRepository favoritesRepository;
 
-    public List yelpBusinessLookup(TripDetailsDto tripDetailsDto) {
+    public List<BusinessDto> yelpBusinessLookup(TripDetailsDto tripDetailsDto) {
 
         OkHttpClient client = new OkHttpClient();
         String city = tripDetailsDto.getCity();

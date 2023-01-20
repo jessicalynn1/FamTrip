@@ -29,10 +29,10 @@ public class FavoritesController {
        return favoritesService.getAllFavoritesByUserId(userId);
     }
 
-    @GetMapping("/test")
-    public List<BusinessDto> test() {  //if you pass in a tripdetailsdto from the form then this method will show real results
-        TripDetailsDto tripDetailsDto = new TripDetailsDto(1L, "Test Trip", "Seattle", true, false, 3, true);
-        return favoritesService.yelpBusinessLookup(tripDetailsDto);
-    }
+//    @GetMapping("/test")
+//    public List<BusinessDto> test() {  //if you pass in a tripdetailsdto from the form then this method will show real results
+//        TripDetailsDto tripDetailsDto = new TripDetailsDto(1L, "Test Trip", "Seattle", true, false, 3, true);
+//        return favoritesService.yelpBusinessLookup(tripDetailsDto);
+//    }
 
 }
