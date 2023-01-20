@@ -1,6 +1,7 @@
 //let tripOptions = document.getElementById(option)
 let businessList = JSON.parse(sessionStorage.getItem("yelpResult"))
 const businessContainer = document.getElementById("trip-details-container")
+let favoritesForm = document.getElementById("favorites-form")
 
 const header = {
     'Content-Type':'application/json'
@@ -9,8 +10,10 @@ const header = {
 console.log(businessList)
 
 const baseUrl = 'http://localhost:8080/api/v1/users'
+
 const populateBusinessList = (list) => {
     businessContainer.innerHTML = ''
+    var str = new String("Website link");
     list.forEach(obj => {
        let row = document.createElement("div")
        row.classList.add("m-4")
@@ -36,13 +39,29 @@ const populateBusinessList = (list) => {
 
 populateBusinessList(businessList)
 
-//for (i = 0; i < businessList.length; i++) {
-//
-//
-//    if(tripOptions[i].checked) {
-//        option = tripOptions[i].value
-//    }
-//}
+const handleSubmit = async (e) => {
+    e.preventDefault()
+
+    let bodyObj = {
+        business: businessList.value,
+    }
+
+    const response = await fetch(`${baseUrl}/favorites/addList`, {
+        method: "POST",
+        body: JSON.stringify(bodyObj),
+        headers: header
+    })
+        .catch(err => console.error(err.message))
+
+    const responseArr = await response.json()
+
+    if (response.status === 200) {
+        document.cookie = `userId=${responseArr[1]}`
+         window.location.replace("http://localhost:8080/home.html")
+    }
+}
+
+favoritesForm.addEventListener("submit", handleSubmit)
 
 
 
@@ -51,8 +70,8 @@ populateBusinessList(businessList)
 
 
 
-// this is where you would validate if the user is logged in or not
-//function handleLogout(){
+
+//function handleLogout(){  //need to add logout function
 //    let c = document.cookie.split(";");
 //    for(let i in c){
 //        document.cookie = /^[^=]+/.exec(c[i])[0]+"=;expires=Thu, 01 Jan 1970 00:00:00 GMT"

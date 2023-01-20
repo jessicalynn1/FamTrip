@@ -16,8 +16,8 @@ public interface FavoritesService {
     @Transactional
     void deleteFavoritesById(Long favoritesId);
 
-//    @Transactional
-//    void addFavorites(FavoritesDto favoritesDto, Long userId);
+    @Transactional
+    void addFavorites(FavoritesDto favoritesDto, Long userId);
 
     List<FavoritesDto> getAllFavoritesByUserId(Long userId);
 

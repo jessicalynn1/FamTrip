@@ -3,6 +3,10 @@ package com.devmountain.famTrip.controllers;
 import com.devmountain.famTrip.dtos.BusinessDto;
 import com.devmountain.famTrip.dtos.FavoritesDto;
 import com.devmountain.famTrip.dtos.TripDetailsDto;
+import com.devmountain.famTrip.dtos.UserDto;
+import com.devmountain.famTrip.entities.Favorites;
+import com.devmountain.famTrip.repositories.FavoritesRepository;
+import com.devmountain.famTrip.repositories.TripDetailsRepository;
 import com.devmountain.famTrip.services.FavoritesService;
 import com.devmountain.famTrip.services.FavoritesServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +20,8 @@ import java.util.Optional;
 @RequestMapping("/api/v1/users/favorites")
 public class FavoritesController {
 
+    @Autowired
+    private FavoritesRepository favoritesRepository;
     @Autowired
     private FavoritesService favoritesService;
 
@@ -34,5 +40,19 @@ public class FavoritesController {
 //        TripDetailsDto tripDetailsDto = new TripDetailsDto(1L, "Test Trip", "Seattle", true, false, 3, true);
 //        return favoritesService.yelpBusinessLookup(tripDetailsDto);
 //    }
+
+    @PostMapping("/addList")
+    public void addFavorites (@RequestBody BusinessDto businessDto) {
+        String name = businessDto.getName();
+        String address = businessDto.getAddress();
+//        String categories = businessDto.getCategories();
+        String website = businessDto.getWebsite();
+//        String displayPhone = businessDto.getDisplayPhone();
+
+        FavoritesDto favoritesDto = new FavoritesDto(null, name, address, null, website, null);
+        Favorites favorites1 = new Favorites(favoritesDto);
+        favoritesRepository.saveAndFlush(favorites1);
+        return;
+    }
 
 }
