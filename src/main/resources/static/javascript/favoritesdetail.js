@@ -49,31 +49,6 @@ console.log(data);
         }
         )
     }
-//}
-const handleSubmit = async (e) => {
-    e.preventDefault()
-
-    let bodyObj = {
-        business: businessList.value,
-    }
-
-    const response = await fetch(`${baseUrl}/favorites/addFavorites`, {
-        method: "POST",
-        body: JSON.stringify(bodyObj),
-        headers: header
-    })
-        .catch(err => console.error(err.message))
-
-    const responseArr = await response.json()
-
-    if (response.status === 200) {
-        document.cookie = `userId=${responseArr[1]}`
-        window.location.replace("http://localhost:8080/favoritesdetail.html")
-    }
-}
-
-favoritesForm.addEventListener("submit", handleSubmit)
-
 
 function handleLogout(){
     let c = document.cookie.split(";");
@@ -81,29 +56,3 @@ function handleLogout(){
         document.cookie = /^[^=]+/.exec(c[i])[0]+"=;expires=Thu, 01 Jan 1970 00:00:00 GMT"
     }
 }
-
-//
-//
-//       let favoritesList = document.getElementsByName("favorites-container")
-//        for (i = 0; i < favoritesList.length; i++) {
-//            System.out.println(favoritesList[i].value)
-//        }
-//
-//    let bodyObj = {
-//            favoriteList: favorites-body
-//        }
-//
-//    const response = await fetch(`${baseUrl}/favorites`, {
-//                method: "GET",
-//                body: JSON.stringify(bodyObj),
-//                headers: header
-//            })
-//
-//            .catch(err => console.error(err.message))
-//
-//        const responseArr = await response.json()
-//
-//        if (response.status === 200) {
-//            window.location.replace(responseArr[0])
-//        }
-

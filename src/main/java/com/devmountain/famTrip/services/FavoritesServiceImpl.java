@@ -137,7 +137,7 @@ public class FavoritesServiceImpl implements FavoritesService {
 
                 strCategories.add(category.get("title").asText());
             }
-            businessDto.setCategories(String.join(" and ", strCategories));
+            businessDto.setCategories(String.join(", ", strCategories));
 
             for (Iterator<JsonNode> it = addresses.elements(); it.hasNext();) {
                 JsonNode address = it.next();

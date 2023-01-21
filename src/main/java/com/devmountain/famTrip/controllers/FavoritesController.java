@@ -9,6 +9,7 @@ import com.devmountain.famTrip.repositories.FavoritesRepository;
 import com.devmountain.famTrip.repositories.TripDetailsRepository;
 import com.devmountain.famTrip.services.FavoritesService;
 import com.devmountain.famTrip.services.FavoritesServiceImpl;
+import com.devmountain.famTrip.services.TripDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -41,18 +42,21 @@ public class FavoritesController {
 //        return favoritesService.yelpBusinessLookup(tripDetailsDto);
 //    }
 
-    @PostMapping("/addList")
+    @PostMapping("/addFavorites")
     public void addFavorites (@RequestBody BusinessDto businessDto) {
         String name = businessDto.getName();
         String address = businessDto.getAddress();
-//        String categories = businessDto.getCategories();
+        String categories = businessDto.getCategories();
         String website = businessDto.getWebsite();
-//        String displayPhone = businessDto.getDisplayPhone();
+
+        System.out.println("Controller name: " + name);
+        System.out.println("Controller address: " + address);
+        System.out.println("Controller website: " + website);
+        System.out.println("Controller categories: " + categories);
 
         FavoritesDto favoritesDto = new FavoritesDto(null, name, address, null, website, null);
         Favorites favorites1 = new Favorites(favoritesDto);
         favoritesRepository.saveAndFlush(favorites1);
         return;
     }
-
 }
