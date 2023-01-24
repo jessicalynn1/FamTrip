@@ -6,18 +6,18 @@ let businessList = JSON.parse(sessionStorage.getItem("yelpResult"))
 const businessContainer = document.getElementById("trip-details-container")
 let favoritesForm = document.getElementById("favorites-form")
 
+
 const header = {
     'Content-Type':'application/json'
 }
 
-//console.log(businessList)
 
 const baseUrl = 'http://localhost:8080/api/v1/users'
 
 const populateBusinessList = (list) => {
     businessContainer.innerHTML = ''
 
-    list.forEach(obj => {
+    list.forEach((obj, index) => {
        let row = document.createElement("div")
        row.classList.add("m-4")
        row.innerHTML = `
@@ -31,7 +31,7 @@ const populateBusinessList = (list) => {
         </p>
 
        <br>
-       <input type="checkbox" id="option" name="option">
+       <input type="checkbox" id="favorites-form-${index}" name="option">
        <label for="option" id="option-label">
        </label> <br>
        </div>
@@ -46,8 +46,19 @@ populateBusinessList(businessList)
 const handleSubmit = async (e) => {
     e.preventDefault()
 
+    let selectedFavorites = []
+    let elements = document.querySelectorAll("input[type=checkbox]:checked")
+    elements.forEach(element => {
+        let num = element.id.split("-")[2]
+        let numInt = parseInt(num)
+        selectedFavorites.push(businessList[numInt])
+    }
+    )
+
+    console.log(selectedFavorites)
+
     let bodyObj = {
-        business: businessList.value,
+        business: selectedFavorites
     }
 
     const response = await fetch(`${baseUrl}/favorites/addFavorites`, {
@@ -55,6 +66,7 @@ const handleSubmit = async (e) => {
         body: JSON.stringify(bodyObj),
         headers: header
     })
+    console.log(bodyObj)
         .catch(err => console.error(err.message))
 
     const responseArr = await response.json()

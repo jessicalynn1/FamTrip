@@ -119,7 +119,7 @@ public class FavoritesServiceImpl implements FavoritesService {
 
         while (businesses.hasNext()) {
             JsonNode business = businesses.next();
-            System.out.println("Business object printed here: " + business);
+//            System.out.println("Business object printed here: " + business);
             BusinessDto businessDto = new BusinessDto();
 
             businessDto.setName(business.get("name").asText());

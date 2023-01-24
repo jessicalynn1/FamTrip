@@ -26,9 +26,12 @@ public class Favorites {
     @Column
     private String address;
     @Column
-    private String type;
+    private String displayPhone;
     @Column
     private String website;
+
+    @Column
+    private String categories;
 
     public Long getId() {
         return id;
@@ -51,11 +54,11 @@ public class Favorites {
         this.address = address;
     }
 
-    public String getType() {
-        return type;
+    public String getDisplayPhone() {
+        return displayPhone;
     }
-    public void setType(String type) {
-        this.type = type;
+    public void setDisplayPhone(String displayPhone) {
+        this.displayPhone = displayPhone;
     }
 
     public String getWebsite() {
@@ -65,12 +68,21 @@ public class Favorites {
         this.website = website;
     }
 
-    public Favorites(Long id, String name, String address, String type, String website) {
+    public String getCategories() {
+        return categories;
+    }
+
+    public void setCategories(String categories) {
+        this.categories = categories;
+    }
+
+    public Favorites(Long id, String name, String address, String displayPhone, String website) {
         this.id = id;
         this.name = name;
         this.address = address;
-        this.type = type;
+        this.displayPhone = displayPhone;
         this.website = website;
+        this.categories = categories;
     }
 
     @ManyToOne
@@ -84,11 +96,14 @@ public class Favorites {
         if (favoritesDto.getAddress() != null) {
             this.address = favoritesDto.getAddress();
         }
-        if (favoritesDto.getType() != null) {
-            this.type = favoritesDto.getType();
+        if (favoritesDto.getDisplayPhone() != null) {
+            this.displayPhone = favoritesDto.getDisplayPhone();
         }
         if (favoritesDto.getWebsite() != null) {
             this.website = favoritesDto.getWebsite();
+        }
+        if (favoritesDto.getCategories() != null) {
+            this.categories = favoritesDto.getCategories();
         }
     }
 }

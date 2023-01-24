@@ -14,7 +14,8 @@ public class FavoritesDto implements Serializable {
     private Long id;
     private String name;
     private String address;
-    private String type;
+    private String displayPhone;
+    private String categories;
     private String website;
     private TripDetailsDto tripDetailsDto;
 
@@ -25,8 +26,8 @@ public class FavoritesDto implements Serializable {
             this.name = favorites.getName();
         } if (favorites.getAddress() != null) {
             this.address = favorites.getAddress();
-        } if (favorites.getType() != null) {
-            this.type = favorites.getType();
+        } if (favorites.getDisplayPhone() != null) {
+            this.displayPhone = favorites.getDisplayPhone();
         } if (favorites.getWebsite() != null) {
             this.website = favorites.getWebsite();
         } if (favorites.getTripDetails() != null) {
