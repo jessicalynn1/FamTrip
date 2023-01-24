@@ -55,30 +55,21 @@ const handleSubmit = async (e) => {
     }
     )
 
-    console.log(selectedFavorites)
-
-    let bodyObj = {
-        business: selectedFavorites
-    }
 
     const response = await fetch(`${baseUrl}/favorites/addFavorites`, {
         method: "POST",
-        body: JSON.stringify(bodyObj),
+        body: JSON.stringify(selectedFavorites),
         headers: header
     })
-    console.log(bodyObj)
         .catch(err => console.error(err.message))
 
-    const responseArr = await response.json()
 
     if (response.status === 200) {
-        document.cookie = `userId=${responseArr[1]}`
         window.location.replace("http://localhost:8080/home.html")
     }
 }
 
 favoritesForm.addEventListener("submit", handleSubmit)
-
 
 function handleLogout(){
     let c = document.cookie.split(";");

@@ -43,24 +43,19 @@ public class FavoritesController {
 //    }
 
     @PostMapping("/addFavorites")
-    public void addFavorites (@RequestBody ArrayList<FavoritesDto> favoritesList) {
+    public void addFavorites (@RequestBody List<FavoritesDto> favoritesList) {
 
-        System.out.println("Favorites printed here: ");
-        favoritesList.forEach(System.out::println);
+        for (FavoritesDto each: favoritesList
+        ) {
+            String name = each.getName();
+            String address = each.getAddress();
+            String website = each.getWebsite();
+            String displayPhone = each.getDisplayPhone();
+            String categories = each.getCategories();
 
-
-//        String name = businessDtoList.;
-//        String address = businessDtoList.getAddress();
-//        String categories = businessDtoList.getCategories();
-//        String website = businessDtoList.getWebsite();
-
-//        System.out.println("Controller name: " + name);
-//        System.out.println("Controller address: " + address);
-//        System.out.println("Controller website: " + website);
-//        System.out.println("Controller categories: " + categories);
-//
-//        FavoritesDto favoritesDto = new FavoritesDto(null, name, address, null, website, null);
-//        Favorites favorites1 = new Favorites(favoritesDto);
-//        favoritesRepository.saveAndFlush(favorites1);
+            FavoritesDto favoritesDto = new FavoritesDto(null, name, address, displayPhone, categories, website, null);
+            Favorites favorites1 = new Favorites(favoritesDto);
+            favoritesRepository.saveAndFlush(favorites1);
+        }
     }
 }

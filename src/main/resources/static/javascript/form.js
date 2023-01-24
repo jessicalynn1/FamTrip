@@ -21,7 +21,6 @@ const handleSubmit = async (e) => {
    for (i = 0; i <types.length; i++) {
         if(types[i].checked) {
             type = types[i].value
-            console.log(type)
         }
    }
 
