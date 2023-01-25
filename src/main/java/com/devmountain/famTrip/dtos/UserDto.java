@@ -16,8 +16,6 @@ public class UserDto implements Serializable {
 
     private Long id;
     private String userName;
-//    private String lastName;
-//    private String email;
     private String password;
     private Set<TripDetailsDto> tripDetailsDto = new HashSet<>();
 
@@ -26,10 +24,6 @@ public class UserDto implements Serializable {
             this.id = user.getId();
         } if (user.getUserName() != null) {
             this.userName = user.getUserName();
-//        } if (user.getLastName() != null) {
-//            this.lastName = user.getLastName();
-//        } if (user.getEmail() != null) {
-//            this.email = user.getEmail();
         } if (user.getPassword() != null) {
             this.password = user.getPassword();
         }

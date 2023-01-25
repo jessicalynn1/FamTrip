@@ -1,6 +1,5 @@
 package com.devmountain.famTrip.services;
 
-
 import com.devmountain.famTrip.dtos.BusinessDto;
 import com.devmountain.famTrip.dtos.FavoritesDto;
 import com.devmountain.famTrip.dtos.TripDetailsDto;
@@ -10,41 +9,19 @@ import com.devmountain.famTrip.entities.User;
 import com.devmountain.famTrip.repositories.FavoritesRepository;
 import com.devmountain.famTrip.repositories.TripDetailsRepository;
 import com.devmountain.famTrip.repositories.UserRepository;
-import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.node.ArrayNode;
-import com.fasterxml.jackson.databind.node.ObjectNode;
 import jakarta.transaction.Transactional;
 import okhttp3.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.util.Assert;
 
-import javax.lang.model.element.Element;
 import java.io.IOException;
 import java.text.MessageFormat;
 import java.util.*;
 
 @Service
 public class FavoritesServiceImpl implements FavoritesService {
-
-    //all the logic is done here
-    //controller calls service
-    /*
-    Need to do the following:
-    Call the Yelp API
-    Display results of API call
-    Allow user ability to tag certain restaurants and activities as favorites
-    Allow user to find past lists of favorites
-    Allow user to delete favorites list
-
-//        Code below from Yelp Fusion API documentation, it's all about the categories when searching
-//Categories to use for activities: kids_activities, playgrounds, recreation, childrensmuseums, planetarium, indoor_playcenter
-//Categories to use for Events: kids-family, festivals-fairs
-//Restaurant json doesn't include kids menu but MAYBE I can filter by number of $$$ (less is best) and if they take reservations
-//transactions: restaurant_reservation and price: $$ or pizza
-     */
 
     @Autowired
     private UserRepository userRepository;
@@ -151,7 +128,6 @@ public class FavoritesServiceImpl implements FavoritesService {
         return result;
         }
 
-
     @Override
     @Transactional
     public List<FavoritesDto> getAllFavoritesByUserId(Long userId) {
@@ -162,7 +138,6 @@ public class FavoritesServiceImpl implements FavoritesService {
         }
         return Collections.emptyList();
     }
-
 
     @Transactional
     public void deleteFavoritesById(Long favoritesId) {
@@ -178,11 +153,6 @@ public class FavoritesServiceImpl implements FavoritesService {
         favoritesRepository.saveAndFlush(favorites);
     }
 
-//    @Transactional
-//    public ArrayList<BusinessDto> displayResponse(ArrayList<BusinessDto> response) {
-//
-//        return;         //sent question to Zack about this method
-//    }
 
 }
 

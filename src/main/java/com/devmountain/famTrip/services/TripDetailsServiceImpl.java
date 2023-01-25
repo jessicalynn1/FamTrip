@@ -41,7 +41,6 @@ public class TripDetailsServiceImpl implements TripDetailsService {
         Optional<TripDetails> tripOptional = tripDetailsRepository.findById(tripDetailsId);
         tripOptional.ifPresent(tripDetails -> tripDetailsRepository.delete(tripDetails));
     }
-
     public List<TripDetailsDto> getAllTripsByUserId(Long userId) {
         Optional<User> userOptional = userRepository.findById(userId);
         if (userOptional.isPresent()) {

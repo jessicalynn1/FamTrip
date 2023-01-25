@@ -1,6 +1,5 @@
 package com.devmountain.famTrip.controllers;
 
-
 import com.devmountain.famTrip.dtos.UserDto;
 import com.devmountain.famTrip.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,10 +10,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
-
-/*
-Can I have two methods going to the same page? /login is used twice
- */
 
 @RestController
 @RequestMapping("/api/v1/users")

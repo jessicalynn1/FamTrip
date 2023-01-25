@@ -44,11 +44,6 @@ public class TripDetailsController {
         Boolean children = tripFormRequest.getChildren();
         String type = tripFormRequest.getType();
 
-//        System.out.println(tripName);
-//        System.out.println(city);
-//        System.out.println(children);
-//        System.out.println(type);
-
         if (type.equals("restaurant")) {
             restaurant = true;
         } else {

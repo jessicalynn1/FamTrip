@@ -1,21 +1,13 @@
 package com.devmountain.famTrip.controllers;
 
-import com.devmountain.famTrip.dtos.BusinessDto;
 import com.devmountain.famTrip.dtos.FavoritesDto;
-import com.devmountain.famTrip.dtos.TripDetailsDto;
-import com.devmountain.famTrip.dtos.UserDto;
 import com.devmountain.famTrip.entities.Favorites;
 import com.devmountain.famTrip.repositories.FavoritesRepository;
-import com.devmountain.famTrip.repositories.TripDetailsRepository;
 import com.devmountain.famTrip.services.FavoritesService;
-import com.devmountain.famTrip.services.FavoritesServiceImpl;
-import com.devmountain.famTrip.services.TripDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/v1/users/favorites")
@@ -36,11 +28,6 @@ public class FavoritesController {
        return favoritesService.getAllFavoritesByUserId(userId);
     }
 
-//    @GetMapping("/test")
-//    public List<BusinessDto> test() {  //if you pass in a tripdetailsdto from the form then this method will show real results
-//        TripDetailsDto tripDetailsDto = new TripDetailsDto(1L, "Test Trip", "Seattle", true, false, 3, true);
-//        return favoritesService.yelpBusinessLookup(tripDetailsDto);
-//    }
 
     @PostMapping("/addFavorites")
     public void addFavorites (@RequestBody List<FavoritesDto> favoritesList) {

@@ -55,7 +55,6 @@ const handleSubmit = async (e) => {
     }
     )
 
-
     const response = await fetch(`${baseUrl}/favorites/addFavorites`, {
         method: "POST",
         body: JSON.stringify(selectedFavorites),

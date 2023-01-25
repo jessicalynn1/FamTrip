@@ -1,6 +1,5 @@
 package com.devmountain.famTrip.entities;
 
-import com.devmountain.famTrip.dtos.TripDetailsDto;
 import com.devmountain.famTrip.dtos.UserDto;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
@@ -24,12 +23,6 @@ public class User {
 
     @Column(unique = true)
     private String userName;
-
-//    @Column
-//    private String lastName;
-
-//    @Column(unique = true)
-//    private String email;
 
     @Column
     private String password;
@@ -68,8 +61,6 @@ public class User {
     public void setPassword(String password) {
         this.password = password;
     }
-
-
 
     public User (UserDto userDto) {
         if (userDto.getUserName() != null) {
