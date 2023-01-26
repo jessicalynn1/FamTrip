@@ -11,7 +11,7 @@ import java.util.Optional;
 @Repository
 public interface TripDetailsRepository extends JpaRepository<TripDetails, Long> {
 
-    List<TripDetails> findAllTripsByUserId(User userId);
+    List<TripDetails> findAllTripsByUserId(Long userId);
 
     Optional<TripDetails> findTripDetailsById(Long tripDetailsId);
 

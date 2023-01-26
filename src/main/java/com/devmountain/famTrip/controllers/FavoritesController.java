@@ -23,16 +23,13 @@ public class FavoritesController {
        favoritesService.deleteFavoritesById(favoritesId);
     }
 
-    @GetMapping("/{favoritesId}")
+    @GetMapping("/{userId}")
     public List<FavoritesDto> getAllFavoritesByUserId (@PathVariable Long userId) {
        return favoritesService.getAllFavoritesByUserId(userId);
     }
 
     @PostMapping("/addFavorites")
     public void addFavorites (@RequestBody List<FavoritesDto> favoritesList) {
-
-        //pass through tripdetailsDto
-        //add tripdetailsid in order to display the favorites in a group
 
         for (FavoritesDto each: favoritesList
         ) {
@@ -41,13 +38,11 @@ public class FavoritesController {
             String website = each.getWebsite();
             String displayPhone = each.getDisplayPhone();
             String categories = each.getCategories();
+            Long tripDetailsId = each.getTripDetailsId();
+            System.out.print(tripDetailsId);
 
-            FavoritesDto favoritesDto = new FavoritesDto(null, name, address, displayPhone, categories, website, null);
-            //call the method in favoritesserviceimpl here
-
-
-            Favorites favorites1 = new Favorites(favoritesDto);
-            favoritesRepository.saveAndFlush(favorites1);
+            FavoritesDto favoritesDto = new FavoritesDto(null, name, address, displayPhone, categories, website, null, tripDetailsId);
+            favoritesService.addFavorites(favoritesDto);
         }
     }
 }

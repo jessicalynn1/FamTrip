@@ -7,7 +7,6 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-
 @Entity
 @Table(name = "Favorites")
 @Data
@@ -26,7 +25,6 @@ public class Favorites {
     private String displayPhone;
     @Column
     private String website;
-
     @Column
     private String categories;
 

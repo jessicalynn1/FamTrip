@@ -36,6 +36,7 @@ const populateBusinessList = (list) => {
        </label> <br>
        </div>
        `
+
        businessContainer.append(row);
     }
     )
@@ -51,11 +52,8 @@ const handleSubmit = async (e) => {
     elements.forEach(element => {
         let num = element.id.split("-")[2]
         let numInt = parseInt(num)
-        let tripDetailsId = element.tripDetailsId
-        //want to pass through the tripdetailsdto
         selectedFavorites.push(businessList[numInt])
-        selectedFavorites.push(tripDetailsId)
-    }
+        }
     )
 
     const response = await fetch(`${baseUrl}/favorites/addFavorites`, {

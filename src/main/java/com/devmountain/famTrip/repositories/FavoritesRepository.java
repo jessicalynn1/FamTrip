@@ -12,7 +12,7 @@ import java.util.List;
 @Repository
 public interface FavoritesRepository extends JpaRepository<Favorites, Long> {
 
-//    List<Favorites> getAllFavoritesByUserId(User userId);
+    List<Favorites> findAllByUserId(Long userId);
 
 //    public void deleteFavoritesById(Long favoritesId);
 //

@@ -15,7 +15,7 @@ const baseUrl = 'http://localhost:8080/api/v1/users'
 /* If user has no favorites print, "You have no saved favorites" */
 
 async function getFavorites(userId) {
-    await fetch('${baseUrl}favorites/${favoritesId}', {
+    await fetch(`${baseUrl}/favorites/${userId}`, {
         method: "GET",
         headers: headers
     })
@@ -26,14 +26,15 @@ async function getFavorites(userId) {
 
 const populateFavoritesList = (list) => {
     favoritesBody.innerHTML = ''
-
     console.log(list)
+
     list.forEach(obj => {
         let row = document.createElement("div")
         row.classList.add("m-4")
         row.innerHTML = `
         <div id="favorites-container">
         <p class="text">
+        Name: ${obj.name}
         <br>
         </p>
         </div>

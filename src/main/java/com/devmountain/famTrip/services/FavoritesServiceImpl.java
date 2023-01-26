@@ -19,6 +19,7 @@ import org.springframework.stereotype.Service;
 import java.io.IOException;
 import java.text.MessageFormat;
 import java.util.*;
+import java.util.stream.Collectors;
 
 @Service
 public class FavoritesServiceImpl implements FavoritesService {
@@ -133,11 +134,15 @@ public class FavoritesServiceImpl implements FavoritesService {
     public List<FavoritesDto> getAllFavoritesByUserId(Long userId) {
         Optional<User> userOptional = userRepository.findById(userId);
         if (userOptional.isPresent()) {
-            List<TripDetails> tripDetails = tripDetailsRepository.findAllTripsByUserId(userOptional.get());
-            System.out.println(tripDetails);
+            List<TripDetails> tripDetails = tripDetailsRepository.findAllTripsByUserId(userOptional.get().getId());
+//            System.out.println(tripDetails)
+            List<Favorites> favorites = favoritesRepository.findAllByUserId(userOptional.get().getId());
+            return favorites.stream().map(favorite -> new FavoritesDto(favorite)).collect(Collectors.toList());
         }
         return Collections.emptyList();
     }
+//this route isnt working because there is no userid in favorites; need to search by favoritesId
+    //main issue is passing through the tripdetailsdto or id to display favorites by group on html side
 
     @Transactional
     public void deleteFavoritesById(Long favoritesId) {
@@ -147,6 +152,11 @@ public class FavoritesServiceImpl implements FavoritesService {
 
     @Transactional
     public void addFavorites(FavoritesDto favoritesDto) {
+        Optional<TripDetails> temp = tripDetailsRepository.findTripDetailsById(favoritesDto.getTripDetailsId());
+        if (temp.isPresent()) {
+            favoritesDto.setTripDetailsDto(new TripDetailsDto(temp.get()));
+            System.out.println("Temp is present. Trip details Id: " + favoritesDto.getTripDetailsId());
+        }
         Favorites favorites = new Favorites(favoritesDto);
         favoritesRepository.saveAndFlush(favorites);
     }

@@ -1,6 +1,7 @@
 package com.devmountain.famTrip.dtos;
 
 import com.devmountain.famTrip.entities.Favorites;
+import com.devmountain.famTrip.entities.TripDetails;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -18,6 +19,7 @@ public class FavoritesDto implements Serializable {
     private String categories;
     private String website;
     private TripDetailsDto tripDetailsDto;
+    private Long tripDetailsId;
 
     public FavoritesDto (Favorites favorites) {
         if (favorites.getId() != null) {
@@ -33,5 +35,11 @@ public class FavoritesDto implements Serializable {
         } if (favorites.getTripDetails() != null) {
             tripDetailsDto = new TripDetailsDto(favorites.getTripDetails());
         }
+        tripDetailsDto = new TripDetailsDto();
+        tripDetailsDto.setId(tripDetailsId);
     }
 }
+
+//if (favorites.getTripDetails().getId() != null) {
+//        this.tripDetailsId = favorites.getTripDetails().getId();
+//        }

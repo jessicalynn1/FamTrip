@@ -45,7 +45,7 @@ public class TripDetailsServiceImpl implements TripDetailsService {
     public List<TripDetailsDto> getAllTripsByUserId(Long userId) {
         Optional<User> userOptional = userRepository.findById(userId);
         if (userOptional.isPresent()) {
-            List<TripDetails> tripDetailsList = tripDetailsRepository.findAllTripsByUserId(userOptional.get());
+            List<TripDetails> tripDetailsList = tripDetailsRepository.findAllTripsByUserId(userOptional.get().getId());
             return tripDetailsList.stream().map(tripDetails -> new TripDetailsDto(tripDetails)).collect(Collectors.toList());
         }
         return Collections.emptyList();
