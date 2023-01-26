@@ -6,11 +6,9 @@ let businessList = JSON.parse(sessionStorage.getItem("yelpResult"))
 const businessContainer = document.getElementById("trip-details-container")
 let favoritesForm = document.getElementById("favorites-form")
 
-
 const header = {
     'Content-Type':'application/json'
 }
-
 
 const baseUrl = 'http://localhost:8080/api/v1/users'
 
@@ -27,6 +25,8 @@ const populateBusinessList = (list) => {
         Phone number: ${obj.displayPhone} <br>
         Category: ${obj.categories} <br>
         <a href="${obj.website}"> Website </a>
+        <br>
+        Trip Detail Id: ${obj.tripDetailsId}
         <br>
         </p>
 
@@ -51,7 +51,10 @@ const handleSubmit = async (e) => {
     elements.forEach(element => {
         let num = element.id.split("-")[2]
         let numInt = parseInt(num)
+        let tripDetailsId = element.tripDetailsId
+        //want to pass through the tripdetailsdto
         selectedFavorites.push(businessList[numInt])
+        selectedFavorites.push(tripDetailsId)
     }
     )
 

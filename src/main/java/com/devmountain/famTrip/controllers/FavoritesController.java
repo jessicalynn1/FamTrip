@@ -28,9 +28,11 @@ public class FavoritesController {
        return favoritesService.getAllFavoritesByUserId(userId);
     }
 
-
     @PostMapping("/addFavorites")
     public void addFavorites (@RequestBody List<FavoritesDto> favoritesList) {
+
+        //pass through tripdetailsDto
+        //add tripdetailsid in order to display the favorites in a group
 
         for (FavoritesDto each: favoritesList
         ) {
@@ -41,6 +43,9 @@ public class FavoritesController {
             String categories = each.getCategories();
 
             FavoritesDto favoritesDto = new FavoritesDto(null, name, address, displayPhone, categories, website, null);
+            //call the method in favoritesserviceimpl here
+
+
             Favorites favorites1 = new Favorites(favoritesDto);
             favoritesRepository.saveAndFlush(favorites1);
         }

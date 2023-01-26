@@ -16,4 +16,5 @@ public class BusinessDto implements Serializable {
     private String categories;
     private String website;
     private String displayPhone;
+    private Long tripDetailsId;
 }

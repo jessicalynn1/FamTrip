@@ -6,6 +6,7 @@ let tripForm = document.getElementById('trip-form')
 let tripName = document.getElementById('trip-name')
 let city = document.getElementById('city')
 let children = document.getElementById('children')
+sessionStorage.setItem("userId", userId)
 
 const header = {
     'Content-Type':'application/json'
@@ -28,7 +29,8 @@ const handleSubmit = async (e) => {
         tripName: tripName.value,
         city: city.value,
         children: children.value,
-        type: type
+        type: type,
+        userId: userId
     }
 
         const response = await fetch(`${baseUrl}/tripdetails/yelpcall`, {

@@ -14,4 +14,5 @@ public class TripFormRequestDto implements Serializable {
     String city;
     Boolean children;
     String type;
+    Long userId;
 }

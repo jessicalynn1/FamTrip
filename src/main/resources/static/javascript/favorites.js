@@ -3,12 +3,8 @@ const cookieArr = document.cookie.split("=")
 const userId = cookieArr[1];
 
 const favoritesBody = document.getElementById("favorites-container")
-let favoritesForm = document.getElementById("favorites-list-form")
 sessionStorage.setItem("userId", userId)
-//const database = new Datastore('favorites.db');
-//database.loadDatabase();
-let favoritesList = getAllFavoritesByUserId(userId)
-console.log(favoritesList)
+//need to figure out how to get favoritesId to pass into getfavorites function
 
 const headers = {
     'Content-Type': 'application/json'
@@ -16,32 +12,38 @@ const headers = {
 
 const baseUrl = 'http://localhost:8080/api/v1/users'
 
-/*
-If user has no favorites print, "You have no saved favorites"
-*/
+/* If user has no favorites print, "You have no saved favorites" */
 
+async function getFavorites(userId) {
+    await fetch('${baseUrl}favorites/${favoritesId}', {
+        method: "GET",
+        headers: headers
+    })
+        .then(response => response.json())
+        .then(data => populateFavoritesList(data))
+        .catch(err => console.error(err))
+}
 
-    const populateFavoritesList = (list) => {
-        favoritesBody.innerHTML = ''
-//        String tempUser = sessionStorage(userId)
+const populateFavoritesList = (list) => {
+    favoritesBody.innerHTML = ''
 
-        list.forEach(obj => {
-            let row = document.createElement("div")
-            row.classList.add("m-4")
-            row.innerHTML = `
-            <div id="favorites-list">
-            <p class="text">
-            <br>
-            </p>
-            </div>
-            `
-        favoritesBody.append(row);
-        }
-        )
+    console.log(list)
+    list.forEach(obj => {
+        let row = document.createElement("div")
+        row.classList.add("m-4")
+        row.innerHTML = `
+        <div id="favorites-container">
+        <p class="text">
+        <br>
+        </p>
+        </div>
+        `
+    favoritesBody.append(row);
     }
+    )
+}
 
-populateFavoritesList(favoritesList)
-
+getFavorites(userId)
 
 function handleLogout(){
     let c = document.cookie.split(";");
@@ -49,26 +51,3 @@ function handleLogout(){
         document.cookie = /^[^=]+/.exec(c[i])[0]+"=;expires=Thu, 01 Jan 1970 00:00:00 GMT"
     }
 }
-
-//
-//const handleSubmit = async (e) => {
-//    e.preventDefault()
-//
-//    let bodyObj = {
-//        business: businessList.value,
-//    }
-//
-//    const response = await fetch(`${baseUrl}/favorites/addFavorites`, {
-//        method: "POST",
-//        body: JSON.stringify(bodyObj),
-//        headers: header
-//    })
-//        .catch(err => console.error(err.message))
-
-//    const responseArr = await response.json()
-//
-//    if (response.status === 200) {
-//        document.cookie = `userId=${responseArr[1]}`
-//        window.location.replace("http://localhost:8080/favoritesdetail.html")
-//    }
-//}

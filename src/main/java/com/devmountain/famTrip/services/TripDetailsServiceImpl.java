@@ -34,6 +34,7 @@ public class TripDetailsServiceImpl implements TripDetailsService {
         TripDetails tripDetails = new TripDetails(tripDetailsDto);
         userOptional.ifPresent(tripDetails::setUser);
         tripDetailsRepository.saveAndFlush(tripDetails);
+        tripDetailsDto.setId(tripDetails.getId());
     }
 
     @Transactional

@@ -20,19 +20,19 @@ public class TripDetailsController {
     private TripDetailsRepository tripDetailsRepository;
 
     @Autowired
-    private TripDetailsService tripDetails;
+    private TripDetailsService tripDetailsService;
 
     @Autowired
     private FavoritesService favoritesService;
 
     @DeleteMapping("tripdetails/{tripDetailsId}")
     public void deleteTripById(@PathVariable Long tripDetailsId){
-        tripDetails.deleteTripById(tripDetailsId);
+        tripDetailsService.deleteTripById(tripDetailsId);
     }
 
     @GetMapping("tripdetails/{tripDetailsId}")
     public List<TripDetailsDto> getAllTripsByUserId(@PathVariable Long userId) {
-        return tripDetails.getAllTripsByUserId(userId);
+        return tripDetailsService.getAllTripsByUserId(userId);
     }
 
     @PostMapping("tripdetails/yelpcall")
@@ -43,6 +43,7 @@ public class TripDetailsController {
         String city = tripFormRequest.getCity();
         Boolean children = tripFormRequest.getChildren();
         String type = tripFormRequest.getType();
+        Long userId = tripFormRequest.getUserId();
 
         if (type.equals("restaurant")) {
             restaurant = true;
@@ -51,8 +52,14 @@ public class TripDetailsController {
         }
 
         TripDetailsDto tripDetailsDto = new TripDetailsDto(null, tripName, city, activities, restaurant, null, children);
-        TripDetails tripDetails1 = new TripDetails(tripDetailsDto);
-        tripDetailsRepository.saveAndFlush(tripDetails1);
-        return favoritesService.yelpBusinessLookup(tripDetailsDto);
+        tripDetailsService.addTrip(tripDetailsDto, userId);
+        List<BusinessDto> result = favoritesService.yelpBusinessLookup(tripDetailsDto);
+
+        result.forEach(business -> {
+            business.setTripDetailsId(tripDetailsDto.getId());
+            }
+        );
+
+        return result;
     }
 }
