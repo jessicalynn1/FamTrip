@@ -4,7 +4,6 @@ const userId = cookieArr[1];
 
 const favoritesBody = document.getElementById("favorites-container")
 sessionStorage.setItem("userId", userId)
-//need to figure out how to get favoritesId to pass into getfavorites function
 
 const headers = {
     'Content-Type': 'application/json'
@@ -27,14 +26,33 @@ async function getFavorites(userId) {
 const populateFavoritesList = (list) => {
     favoritesBody.innerHTML = ''
     console.log(list)
+    let tripName = ""
 
     list.forEach(obj => {
+
+        if (obj.tripDetailsDto.tripName != tripName) {
+            let titleRow = document.createElement("div")
+            titleRow.classList.add("m-4")
+            titleRow.innerHTML = `
+            <div id="trip-name">
+            Trip Name: ${obj.tripDetailsDto.tripName}
+            <br>
+            </div>
+            `
+            favoritesBody.append(titleRow)
+            tripName = obj.tripDetailsDto.tripName
+        }
+
         let row = document.createElement("div")
         row.classList.add("m-4")
         row.innerHTML = `
+
         <div id="favorites-container">
         <p class="text">
-        Name: ${obj.name}
+        Name: ${obj.name} <br>
+        Address: ${obj.address} <br>
+        <a href="${obj.displayPhone}"> Phone number </a> <br>
+        <a href="${obj.website}"> Website </a> <br>
         <br>
         </p>
         </div>

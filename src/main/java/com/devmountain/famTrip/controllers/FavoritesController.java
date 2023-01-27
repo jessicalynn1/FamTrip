@@ -24,8 +24,8 @@ public class FavoritesController {
     }
 
     @GetMapping("/{userId}")
-    public List<FavoritesDto> getAllFavoritesByUserId (@PathVariable Long userId) {
-       return favoritesService.getAllFavoritesByUserId(userId);
+    public List<FavoritesDto> getAllByUserId (@PathVariable Long userId) {
+       return favoritesService.getAllByUserId(userId);
     }
 
     @PostMapping("/addFavorites")

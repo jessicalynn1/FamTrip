@@ -129,14 +129,18 @@ public class FavoritesServiceImpl implements FavoritesService {
         return result;
         }
 
-    @Override
+//    @Override
     @Transactional
-    public List<FavoritesDto> getAllFavoritesByUserId(Long userId) {
+    public List<FavoritesDto> getAllByUserId(Long userId) {
         Optional<User> userOptional = userRepository.findById(userId);
         if (userOptional.isPresent()) {
-            List<TripDetails> tripDetails = tripDetailsRepository.findAllTripsByUserId(userOptional.get().getId());
-//            System.out.println(tripDetails)
-            List<Favorites> favorites = favoritesRepository.findAllByUserId(userOptional.get().getId());
+            List<TripDetails> tripDetailsList = tripDetailsRepository.findAllTripsByUserId(userOptional.get().getId());
+            List<Favorites> favorites = new ArrayList<>();
+
+            for (TripDetails trip : tripDetailsList) {
+                favorites.addAll(favoritesRepository.getAllByTripDetailsId(trip.getId()));
+            }
+
             return favorites.stream().map(favorite -> new FavoritesDto(favorite)).collect(Collectors.toList());
         }
         return Collections.emptyList();
@@ -153,11 +157,12 @@ public class FavoritesServiceImpl implements FavoritesService {
     @Transactional
     public void addFavorites(FavoritesDto favoritesDto) {
         Optional<TripDetails> temp = tripDetailsRepository.findTripDetailsById(favoritesDto.getTripDetailsId());
-        if (temp.isPresent()) {
-            favoritesDto.setTripDetailsDto(new TripDetailsDto(temp.get()));
-            System.out.println("Temp is present. Trip details Id: " + favoritesDto.getTripDetailsId());
-        }
+        favoritesDto.setTripDetailsDto(new TripDetailsDto(temp.get()));
         Favorites favorites = new Favorites(favoritesDto);
+        temp.ifPresent(favorites::setTripDetails);
+        System.out.println("Temp is present. Trip details Id: " + favoritesDto.getTripDetailsId());
+        System.out.println(favoritesDto.getTripDetailsDto().getTripName());
+
         favoritesRepository.saveAndFlush(favorites);
     }
 }

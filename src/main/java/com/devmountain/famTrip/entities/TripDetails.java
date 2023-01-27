@@ -21,22 +21,16 @@ public class TripDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
     @Column
     private String tripName;
-
     @Column
     private String city;
-
     @Column
     private Boolean activity;
-
     @Column
     private Boolean restaurant;
-
     @Column
     private Integer groupSize;
-
     @Column
     private Boolean children;
 

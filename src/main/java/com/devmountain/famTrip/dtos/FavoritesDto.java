@@ -32,11 +32,13 @@ public class FavoritesDto implements Serializable {
             this.displayPhone = favorites.getDisplayPhone();
         } if (favorites.getWebsite() != null) {
             this.website = favorites.getWebsite();
-        } if (favorites.getTripDetails() != null) {
-            tripDetailsDto = new TripDetailsDto(favorites.getTripDetails());
         }
+//        if (favorites.getTripDetails() != null) {
+//            tripDetailsDto = new TripDetailsDto(favorites.getTripDetails());
+//        }
         tripDetailsDto = new TripDetailsDto();
         tripDetailsDto.setId(tripDetailsId);
+        tripDetailsDto.setTripName(favorites.getTripDetails().getTripName());
     }
 }
 

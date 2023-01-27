@@ -16,7 +16,7 @@ public interface FavoritesService {
     @Transactional
     void addFavorites(FavoritesDto favoritesDto);
 
-    List<FavoritesDto> getAllFavoritesByUserId(Long userId);
+    List<FavoritesDto> getAllByUserId(Long userId);
 
     public List yelpBusinessLookup (TripDetailsDto tripDetailsDto);
 
