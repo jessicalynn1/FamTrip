@@ -26,8 +26,6 @@ const populateBusinessList = (list) => {
         Category: ${obj.categories} <br>
         <a href="${obj.website}"> Website </a>
         <br>
-        Trip Detail Id: ${obj.tripDetailsId}
-        <br>
         </p>
 
        <br>
@@ -65,7 +63,7 @@ const handleSubmit = async (e) => {
 
 
     if (response.status === 200) {
-        window.location.replace("http://localhost:8080/home.html")
+        window.location.replace("http://localhost:8080/favorites.html")
     }
 }
 

@@ -4,6 +4,8 @@ const userId = cookieArr[1];
 
 const favoritesBody = document.getElementById("favorites-container")
 sessionStorage.setItem("userId", userId)
+const hideFaves = document.getElementById("trip-name")
+const noFaves = document.getElementById("no-faves")
 
 const headers = {
     'Content-Type': 'application/json'
@@ -12,6 +14,7 @@ const headers = {
 const baseUrl = 'http://localhost:8080/api/v1/users'
 
 /* If user has no favorites print, "You have no saved favorites" */
+
 
 async function getFavorites(userId) {
     await fetch(`${baseUrl}/favorites/${userId}`, {
@@ -24,6 +27,13 @@ async function getFavorites(userId) {
 }
 
 const populateFavoritesList = (list) => {
+
+    if (list.length != 0) {
+        hideFaves.style.display = 'inline'
+    } else {
+        noFaves.style.display = 'inline'
+    }
+
     favoritesBody.innerHTML = ''
     console.log(list)
     let tripName = ""
@@ -61,6 +71,7 @@ const populateFavoritesList = (list) => {
     }
     )
 }
+
 
 getFavorites(userId)
 

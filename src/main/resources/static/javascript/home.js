@@ -1,4 +1,9 @@
-// this is where you would validate if the user is logged in or not
+//Cookie
+const cookieArr = document.cookie.split("=")
+const userId = cookieArr[1];
+
+//need to validate is user has favorites
+
 function handleLogout(){
     let c = document.cookie.split(";");
     for(let i in c){
