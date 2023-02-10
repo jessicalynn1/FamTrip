@@ -6,6 +6,8 @@ const favoritesBody = document.getElementById("favorites-container")
 sessionStorage.setItem("userId", userId)
 const hideFaves = document.getElementById("trip-name")
 const noFaves = document.getElementById("no-faves")
+const noUser = document.getElementById("no-user")
+
 
 const headers = {
     'Content-Type': 'application/json'
@@ -13,8 +15,17 @@ const headers = {
 
 const baseUrl = 'http://localhost:8080/api/v1/users'
 
-/* If user has no favorites print, "You have no saved favorites" */
-
+async function getUser(userId) {
+    console.log("User id inside function: " + userId)
+    if (userId) {
+        noFaves.style.display = 'inline'
+        noUser.style.display = 'none'
+    } else {
+        noUser.style.display = 'inline'
+        noFaves.style.display = 'inline'
+        hideFaves.style.display = 'none'
+    }
+}
 
 async function getFavorites(userId) {
     await fetch(`${baseUrl}/favorites/${userId}`, {
@@ -26,12 +37,15 @@ async function getFavorites(userId) {
         .catch(err => console.error(err))
 }
 
+
 const populateFavoritesList = (list) => {
 
     if (list.length != 0) {
         hideFaves.style.display = 'inline'
+        noFaves.style.display = 'none'
     } else {
         noFaves.style.display = 'inline'
+        hideFaves.style.display = 'none'
     }
 
     favoritesBody.innerHTML = ''
@@ -45,7 +59,7 @@ const populateFavoritesList = (list) => {
             titleRow.classList.add("m-4")
             titleRow.innerHTML = `
             <div id="trip-name">
-            Trip Name: ${obj.tripDetailsDto.tripName}
+            <h3> Trip Name: ${obj.tripDetailsDto.tripName} </h3>
             <br>
             </div>
             `
@@ -72,12 +86,12 @@ const populateFavoritesList = (list) => {
     )
 }
 
-
-getFavorites(userId)
-
 function handleLogout(){
     let c = document.cookie.split(";");
     for(let i in c){
         document.cookie = /^[^=]+/.exec(c[i])[0]+"=;expires=Thu, 01 Jan 1970 00:00:00 GMT"
     }
 }
+
+getFavorites(userId)
+getUser(userId)

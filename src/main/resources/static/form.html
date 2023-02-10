@@ -38,12 +38,16 @@
         </ul>
     </div>
 </nav>
-<br>
+
+<h1 style="width:100%" align="center">Welcome, let's plan your next trip! </h1>
+
+<div class="container" id="no-user" style="display:none">
+    <h1>Please login to plan your trip.</h1>
+</div>
+
 <section>
     <div class="container" id="form-container">
-        <div class="col1">
-            <h1> Welcome, let's plan your next trip! </h1>
-            <br>
+        <div class="col1" id="column1" style="text-align: left" style="width:30%">
             <h4>Please fill out the form below.</h4>
 
             <form id="trip-form" method="POST">
@@ -61,7 +65,7 @@
                 <input type="text" name="city" id="city">
                 <br>
 
-                <div class="col2">
+                <div class="col2" id="column2" style="text-align: left" style="width:30%">
                     <br>
 
                     <p>Tell me about your travel group.</p>
@@ -81,7 +85,7 @@
                     <br>
                     <br>
 
-                    <h4>Once you have completed the form, please hit the submit button.</h4>
+                    <h5>Once you have completed the form, please hit the submit button.</h5>
                     <br>
 
                     <button id="submit-button-1" type="submit" class="btn btn-primary" > Submit </button>

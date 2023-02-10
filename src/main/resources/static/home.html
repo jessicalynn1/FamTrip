@@ -39,19 +39,24 @@
     </div>
 </nav>
 
-<h1>Welcome to FamTrip!</h1>
-<div class="container" id="home-container">
+<h1 style="width:100%" align="center">Welcome to FamTrip!</h1>
+
+<div class="container" id="no-user" style="display:none">
+    <h1>Please login to plan your trip.</h1>
+</div>
+
+<div class="container" id="home-container" style="text-align: center">
     <div id="favorites-container">
-            <div class="favorites-group">
-                <h2> Would you like to see your saved favorites? </h2>
-                <p> <a href="/favorites.html"> <button class="button"> Click to see favorites </button></a> </p>
+            <div class="favorites-group" style="text-align: center">
+                <h4> Would you like to see your saved favorites? </h4>
+                <p> <a href="/favorites.html"> <button type="submit" class="btn btn-primary"> Click to see favorites </button></a> </p>
             </div>
     </div>
 
-    <div id="new-form-container">
-        <div class="new-form-group">
-            <h2> Would you like to research a new trip? </h2>
-            <p> <a href="/form.html"> <button class="button"> Click to start search </button></a> </p>
+    <div id="new-form-container" style="text-align: center">
+        <div class="new-form-group" style="text-align: center">
+            <h4> Would you like to research a new trip? </h4>
+            <p> <a href="/form.html"> <button type="submit" class="btn btn-primary"> Click to start search </button></a> </p>
         </div>
     </div>
 </div>
