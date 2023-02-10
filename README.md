@@ -4,7 +4,7 @@ Have you ever carried a screaming child out of a nice restaurant wondering where
 
 Here at FamTrip we scour the internet looking for family friendly restaurants and activities for your next family trip. With the help of the Yelp Fusion API, here at FamTrip we find the best rated activities and restaurants that we know your family will love. Just register as a user, login, and begin your search. You will be given an option to save your favorites and look at reviews on Yelp with a direct URL link for that business. Next time you log in, you will see your favorites there.
 
-![loginpage](/resources/static/img/loginpage.png "loginpage")
+![loginpage](src/main/resources/static/img/loginpage.png "loginpage")
 
 **CONTENTS**
 
