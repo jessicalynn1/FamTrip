@@ -60,7 +60,6 @@ const populateFavoritesList = (list) => {
             titleRow.innerHTML = `
             <div id="trip-name">
             <h3> Trip Name: ${obj.tripDetailsDto.tripName} </h3>
-            <br>
             </div>
             `
             favoritesBody.append(titleRow)
