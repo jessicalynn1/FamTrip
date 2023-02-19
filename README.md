@@ -75,7 +75,9 @@ Navigate to `localhost:8080/register.html` to plan your next trip!
 
 ## About the Developer
 
-Jessica Faylor is a software engineer in California, and previously worked in various fields, including finance, accounting and administration. A combination of her love for family time, learning new things, and less screaming children, led to the creation of FamTrip, her capstone project for Walmart's Java Fellowship program.
+Jessica Faylor is a software engineer in California. She has multiple degrees, including an MBA, and has previously worked in finance, accounting and administration. Jessica has a newfound passion for software engineering but has always been interested in technology ever since her job at Blizzard Entertainment. She loves learning new things, challenging herself, and is always looking for new ways to improve. When she isn't in front of a computer, she is likely cooking/baking, spending time outside with her son, or playing a board game/video game/puzzle.
+
+A combination of her love for family time, learning new things, and less screaming children, led to the creation of FamTrip, her capstone project for Walmart's Java Fellowship program.
 
 Let's connect!
 
